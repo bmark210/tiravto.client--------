@@ -1,0 +1,159 @@
+.product-outlet {
+  display: grid;
+  width: 100%;
+  grid-template-columns: minmax(500px, 1fr) 2fr;
+  margin-bottom: 2rem;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .product-outlet {
+    grid-template-columns: 100%;
+  }
+}
+
+
+.table-design-column.separator.product-page-store {
+  width: calc(100vw - 1513px);
+  max-width: 300px;
+  min-width: 150px;
+}
+
+.table-design-column.separator.product-page-count {
+  width: 110px;
+}
+
+.one-image ngx-gallery deep .ngx-gallery-arrow.ngx-gallery-disabled {
+  display: none;
+}
+
+/* ngx-gallery deep .ngx-gallery-preview-img {
+  max-width: 74% !important;
+  max-height: 74% !important;
+} */
+
+.table-design-column.separator.product-page-delivery {
+  width: 150px;
+}
+
+.table-design-column.separator.product-page-unit {
+  width: 80px;
+}
+
+.table-design-column.separator.product-page-price2 {
+  width: 160px;
+
+}
+
+.table-design-column.separator.product-page-priceDiscount {
+  width: 160px;
+}
+
+.table-design-column.product-page-basket {
+  width: 120px;
+}
+
+.table-design.product-page {
+  float: left;
+}
+
+/* .table-design.product-page {
+  width: 795px;
+}
+
+@media (max-width: 1200px) {
+  .table-design.product-page {
+    margin: 0 auto;
+  }
+} */
+
+.gallery-wrapper {
+  text-align: center;
+  margin-top: 50px;
+}
+
+
+/* table */
+.product-table {
+  width: 100%;
+  margin: 20px 0;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+  overflow: hidden;
+}
+
+.styled-table th,
+.styled-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.styled-table thead {
+  background-color: #f4f4f4;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.input-box {
+  width: 50px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.input-btn {
+  cursor: pointer;
+  color: black;
+}
+
+.input-btn:hover {
+  opacity: 0.7;
+}
+
+.btn-buy {
+  padding: 6px 12px;
+  border: 1px solid #e31e24;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-buy:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.btn-buy:hover {
+  background-color: #e31e24;
+  color: #fff !important;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-wrap {
+  /* white-space: nowrap !important; */
+}

@@ -1,0 +1,332 @@
+<!-- <header> -->
+
+
+<!-- <p class="text-2xl">{{width}}</p> -->
+<!-- <div>
+    <h1>User Information</h1>
+    <div *ngIf="user$ | async as user">
+      <p>ID: {{ user.id }}</p>
+      <p>Name: {{ user.name }}</p>
+      <p>Email: {{ user.email }}</p>
+    </div>
+    <button class="text-white bg-green-300" (click)="loadUser()">Load User</button>
+    <button (click)="clearUser()">Clear User</button>
+  </div> -->
+
+  <!-- <app-custom-mat-menu></app-custom-mat-menu> -->
+
+<header
+  class="pt-5 xl:block hidden"
+>
+  <!-- [ngClass]="{
+    'header-bottom-home': isHome === true,
+    'header-bottom': isHome === false
+  }" -->
+<ng-container *ngFor="let item of header; let i = index">
+  <!-- {{header?.[i]["name"] | json}} -->
+</ng-container>
+
+<ul #menu nz-menu nzMode="horizontal" class="overflow-menu">
+  <li *ngFor="let item of visibleItems" nz-menu-item [nzSelected]="item.selected" [nzDisabled]="item.disabled">
+    <nz-icon *ngIf="item.icon" [nzType]="item.icon"></nz-icon>
+    {{ item.label }}
+  </li>
+  <li *ngIf="overflowItems.length > 0" nz-submenu nzTitle="..." class="more-menu">
+    <ul>
+      <li *ngFor="let item of overflowItems" nz-menu-item [nzSelected]="item.selected" [nzDisabled]="item.disabled">
+        <nz-icon *ngIf="item.icon" [nzType]="item.icon"></nz-icon>
+        {{ item.label }}
+      </li>
+    </ul>
+  </li>
+</ul>
+
+  <div
+    class="container flex items-center justify-between mb-1"
+    #maxWidthMenu
+  >
+   <!-- <a rel="home" [routerLink]="['/']">
+      <img src="https://tiravto.com/assets/logo-small.png" />
+    </a>
+    <div #headerMenu> -->
+      <!-- <app-category-button [categories]="categories"></app-category-button> -->
+      <!-- <app-category-button></app-category-button> -->
+        <!-- <ng-container *ngFor="let item of header; let i = index">
+          <ng-container *ngIf="item.items.length === 0; else dropDown">
+            <button
+              class="menu-button"
+              (click)="menuNavigate(i, -1)"
+            >
+              {{ item.name }}
+            </button>
+          </ng-container>
+          <ng-template #dropDown>
+            <button
+              class="menu-button"
+              [matMenuTriggerFor]="menu"
+              menuOpen="true"
+            >
+              {{ item.name }}
+              <mat-icon class="menu-caret">keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button
+                class="h-7"
+                mat-menu-item
+                *ngFor="let subitem of item.items; let j = index"
+                (click)="menuNavigate(i, j)"
+              >
+                {{ subitem.name }}
+              </button>
+            </mat-menu>
+          </ng-template>
+        </ng-container>
+
+        <app-dynamic-menu [header]="header"></app-dynamic-menu>
+    </div> -->
+    <ng-container *ngIf="isLogin; else notAuth">
+      <nav>
+        <ul>
+          <li class="menu-item">
+            <a class="pointer" [routerLink]="['/profile/ecash']">
+              <ng-container *ngIf="basketCount">
+                <strong>Баланс</strong>
+                <span [ngClass]="{ 'color-sale': balance < 0 }">
+                  {{ balance.toFixed(2) }} {{ basketCount.symbol }}</span
+                >
+              </ng-container>
+            </a>
+          </li>
+          <li class="menu-item" *ngIf="basketCount && basketCount.store">
+            <strong>Склад</strong> {{ basketCount.store }}
+          </li>
+          <li
+            class="techmarket-flex-more-menu-item dropdown"
+            style="display: none"
+          >
+            <a
+              title="..."
+              href="#"
+              data-toggle="dropdown"
+              class="dropdown-toggle"
+              >...</a
+            >
+            <ul class="overflow-items dropdown-menu"></ul>
+          </li>
+          <!-- <li class="menu-item menu-item-type-custom menu-item-object-custom animate-dropdown dropdown">
+              <a class="dropdown-toggle pointer" [matMenuTriggerFor]="menuAuth" menuOpen="true"><i
+                  class="tm tm-login-register" *ngIf="messageCount > 0 else emptyMenu" matBadge="{{messageCount}}"
+                  matBadgePosition="before" matBadgeOverlap="true"></i>
+                <ng-template #emptyMenu><i class="tm tm-login-register"></i></ng-template>
+                {{userName}} <span class="caret"></span>
+              </a>
+            </li> -->
+        </ul>
+      </nav>
+      <!-- <mat-menu #menuAuth="matMenu">
+          <button class="menu-button-item" mat-menu-item [routerLink]="['/profile/about']">Личные данные</button>
+          <button class="menu-button-item" mat-menu-item [routerLink]="['/profile/myorders']">Мои заказы</button>
+          <button class="menu-button-item" mat-menu-item [routerLink]="['/profile/ecash']"> Финансы</button>
+          <button class="menu-button-item" mat-menu-item [routerLink]="['/profile/garage']">Гараж автомобилей</button>
+          <button class="menu-button-item" mat-menu-item [routerLink]="['/profile/mailing']">
+            <span *ngIf="messageCount > 0 else emptyChat" matBadge="{{messageCount}}"
+              matBadgeOverlap="false">Переписка</span>
+            <ng-template #emptyChat><span>Переписка</span></ng-template>
+          </button>
+          <button class="menu-button-item" mat-menu-item *ngIf="isAdmin">Панель управления</button>
+          <button class="menu-button-item" mat-menu-item (click)="logout()" [routerLink]="['/']">Выйти</button>
+        </mat-menu> -->
+    </ng-container>
+
+    <ng-template #notAuth>
+      <nav aria-label="Secondary Navigation" data-nav="flex-menu">
+        <ul>
+          <li class="">
+            <a
+              class="pointer flex items-center gap-3"
+              [routerLink]="['/login']"
+            >
+              <i class="fa fa-user-o text-2xl"></i>
+              Регистрация или Вход
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </ng-template>
+  </div>
+  <div class="container">
+    <div class="w-full flex justify-end items-center gap-3">
+      <ng-container *ngIf="currentPath | async as route">
+        <app-header-category-btn
+        *ngIf="route !== '/'"
+        [settingBool]="settingBool"
+      ></app-header-category-btn>
+      </ng-container>
+
+      <app-search></app-search>
+      <ul class="">
+        <li class="" [routerLink]="['/wishlist']">
+          <div class="flex">
+            <i class="fa fa-heart-o text-3xl"></i>
+            <span class="count">{{ countWish }}</span>
+          </div>
+        </li>
+      </ul>
+
+      <ul class="flex gap-3">
+        <li class="animate-dropdown dropdown">
+          <div class="flex">
+            <i
+              class="fa fa-shopping-bag text-3xl"
+              (mouseleave)="setTimeOutBasket()"
+              (mouseenter)="resetTimeOutBasket()"
+              (click)="showShortBasket = !showShortBasket"
+            ></i>
+            <span class="count">{{ countTotal }}</span>
+            <span
+              class="amount"
+              (click)="basketClick()"
+              [routerLink]="['/basket']"
+              ><span class="price-label">Ваша корзина</span
+              >{{ priceTotal.toFixed(2) }} {{ basketCount.symbol }}</span
+            >
+          </div>
+        </li>
+        <ul
+          class="dropdown-menu dropdown-menu-mini-cart"
+          [ngClass]="{ active: showShortBasket === true }"
+          (mouseenter)="resetTimeOutBasket()"
+          (mouseleave)="setTimeOutBasket()"
+        >
+          <ng-container *ngIf="basketReady; else basketLoader">
+            <!-- <li *ngIf="basketFull && basketFull.length > 0 else emptyBasket"> -->
+            <li *ngIf="basketFull && basketFull.length > 0">
+              <div class="widget_shopping_cart_content" style="opacity: 1">
+                <div class="basket-card-wrapper">
+                  <ng-container
+                    *ngFor="let basket of basketFull; let i = index"
+                  >
+                    <div class="store-title t-align-center">
+                      <span class="city-title d-block"
+                        ><strong>{{ basket.cityTitle }}</strong></span
+                      >
+                      <span class="store-title d-block">{{
+                        basket.store.adress
+                      }}</span>
+                    </div>
+
+                    <div
+                      class="short-bastet-item-wrapper p-relative"
+                      *ngFor="
+                        let product of basket.cityBasket.items;
+                        let j = index
+                      "
+                    >
+                      <a
+                        (click)="removeBasketItem(i, j)"
+                        class="short-bastet-item-remove"
+                        >×</a
+                      >
+                      <div class="short-bastet-item-img">
+                        <img [src]="product.product.iconUrl" />
+                      </div>
+                      <div class="short-bastet-item-info">
+                        <div class="short-baskte-item-title">
+                          <a
+                            [routerLink]="[
+                              '/product/',
+                              product.product.stringKey
+                            ]"
+                            class="pointer"
+                            >{{ product.product.title }}</a
+                          >
+                        </div>
+                        <div class="short-baskte-item-price">
+                          <strong
+                            >{{ product.count }} ×
+                            {{ product.priceDiscount.toFixed(2)
+                            }}{{ basket.currency.symbol }}</strong
+                          >
+                        </div>
+                      </div>
+                    </div>
+
+                    <p class="city-price t-align-center mb-10p">
+                      <strong>Сумма по складу: </strong
+                      >{{ basket.cityBasket.price.toFixed(2) }}
+                      {{ basket.currency.symbol }}
+                    </p>
+                  </ng-container>
+                </div>
+
+                <p class="t-align-center">
+                  <strong>Итого: </strong>{{ priceTotal.toFixed(2) }}
+                  {{ basketCount.symbol }}
+                </p>
+
+                <p class="basket-item-about">
+                  <a
+                    [routerLink]="['/basket']"
+                    (click)="basketClick()"
+                    (click)="showShortBasket = false"
+                    class="button"
+                    >Подробнее</a
+                  >
+                </p>
+              </div>
+            </li>
+
+            <!-- <ng-template #emptyBasket>
+              <li>
+                <div class="widget_shopping_cart_content" style="opacity: 1;">
+                  <p class="woocommerce-mini-cart__empty-message">В Вашей корзине пусто.</p>
+                </div>
+              </li>
+            </ng-template> -->
+          </ng-container>
+
+          <ng-template #basketLoader>
+            <li>
+              <!-- <mat-spinner class="m-auto" diameter="30"></mat-spinner> -->
+            </li>
+          </ng-template>
+        </ul>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<div class="xl:hidden h-[40px]"></div>
+<header class="xl:hidden fixed w-full top-0 bg-white min-h-max py-4 z-50 shadow-md">
+  <div class="container mx-auto flex items-center justify-between">
+    <div class="">
+      <button class="" type="button" (click)="openSidebar.emit()">
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+    <div class="w-full">
+      <app-search [searchActual]="searchActual"></app-search>
+    </div>
+    <div class="flex gap-3 items-center">
+      <ul class="">
+        <li
+          class="animate-dropdown dropdown pointer"
+          [routerLink]="['/wishlist']"
+        >
+          <div class="cart-contents">
+            <i class="fa fa-heart-o"></i>
+            <span class="count">{{ countWish }}</span>
+          </div>
+        </li>
+      </ul>
+      <ul class="">
+        <li class="" [routerLink]="['/basket']" (click)="basketClick()">
+          <div class="cart-contents">
+            <i class="header-cart-icon fa fa-shopping-bag"></i>
+            <span class="count">{{ countTotal }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>

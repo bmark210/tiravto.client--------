@@ -1,0 +1,49 @@
+<mat-menu yPosition="below" #mainMenu="matMenu" style="transition: all 1s ease-in-out;" class="w-[260px]">
+  <ng-container *ngFor="let category of isSlicedMenu ? displayedCategories.slice(0,10) : displayedCategories">
+    <ng-container *ngIf="category.child.length > 0; else withoutChild">
+      <!-- Button for category with children -->
+      <a routerLink="/products/"
+         [queryParams]="getParams(category.stringKey)"
+         mat-menu-item
+         [matMenuTriggerFor]="childMenu">
+        {{ category.title }}
+      </a>
+
+      <!-- Child menu -->
+      <mat-menu yPosition="below" #childMenu="matMenu">
+        <ng-container *ngFor="let subCategory of category.child">
+          <a routerLink="/products/"
+             [queryParams]="getParams(subCategory.stringKey)"
+             mat-menu-item>
+            {{ subCategory.title }}
+          </a>
+        </ng-container>
+        <img src="https://avatars.mds.yandex.net/i?id=1dd15dc4f4a1c14cd000ddea06912f5565fa8f3f-4326244-images-thumbs&n=13"
+             class="px-2 pt-2">
+      </mat-menu>
+    </ng-container>
+
+    <!-- No children -->
+    <ng-template #withoutChild>
+      <a routerLink="/products/"
+         [queryParams]="getParams(category.stringKey)"
+         mat-menu-item>
+        {{ category.title }}
+      </a>
+    </ng-template>
+  </ng-container>
+
+  <button
+    (click)="isSlicedMenu = !isSlicedMenu"
+    [ngClass]="{'rotate-180': !isSlicedMenu}"
+    class="w-full flex items-center justify-center transition-transform"
+    preventMenuClose>
+    <mat-icon>expand_more</mat-icon>
+  </button>
+</mat-menu>
+
+<button class="btn header-category-menu btn-home"
+        [matMenuTriggerFor]="mainMenu">
+  <i class="fa fa-bars"></i>
+  <span>Каталог товаров</span>
+</button>

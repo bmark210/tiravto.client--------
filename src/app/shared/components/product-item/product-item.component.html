@@ -1,0 +1,154 @@
+<ng-container *ngIf="product">
+  <ng-container [ngSwitch]="gridType">
+    <ng-container *ngSwitchCase="0">
+      <div class="relative group bg-white rounded-lg hover:shadow-md hover:rounded-b-none transition-all border border-gray-100 px-2 py-1 lg:rounded-lg lg:hover:rounded-lg cursor-pointer">
+        <!-- [ngClass]="{ 'shadow-lg': isHover }" -->
+        <!-- (mouseleave)="isHover = false" -->
+        <img
+          [src]="pathImage"
+          alt="Product Image"
+          class="w-full h-60 object-contain object-center pointer-events-none pt-4"
+        />
+        <a [routerLink]="['/product/', product.stringKey]" class="block">
+          <!-- (mouseenter)="isHover = true" -->
+          <div class="mt-5 w-full inline-flex gap-2 justify-center">
+            <ng-container *ngIf="product.isDiscounLabel; else withoutDiscount">
+              <span class="line-through text-gray-500">{{
+                product.price.toFixed(2)
+              }}</span>
+              <span class="text-red-500 font-bold"
+                >{{ product.discountPrice.toFixed(2) }} {{ symbol }}</span
+              >
+            </ng-container>
+            <ng-template #withoutDiscount>
+              <span class="text-gray-800 font-bold"
+                >{{ product.price.toFixed(2) }} {{ symbol }}</span
+              >
+            </ng-template>
+          </div>
+          <div
+            class="text-gray-700 font-medium truncate text-xs text-wrap h-[34px] text-center"
+          >
+            {{ product.brand.name }} {{ product.title }}
+          </div>
+        </a>
+        <div class="xl:absolute flex flex-col gap-3 items-center justify-center z-20 bg-white xl:opacity-0 group-hover:opacity-100 transition-opacity xl:shadow-md rounded-b-lg pt-2 pb-3 px-2 right-0 left-0 static opacity-100 xl:w-full shadow-none">
+          <div class="grid grid-cols-2 gap-2 w-full justify-around items-center">
+            <div class="inline-flex hover:fill-red-700 gap-2 items-center w-full justify-center" *ngIf="product.countInfo; else countZeroIcon">
+              <mat-icon class="" [color]="'red'" style="color: red; fill: red" svgIcon="count" class="fill-red-500 hover:fill-red-700 text-red-500"></mat-icon>
+              <span class="text-xs">В наличии</span>
+            </div>
+            <ng-template #countZeroIcon>
+              <div class="inline-flex gap-2 items-center w-full justify-center">
+                <mat-icon class="text-md" svgIcon="count-zero"></mat-icon>
+                <span class="text-xs">Нет в наличии</span>
+              </div>
+            </ng-template>
+              <div (click)="initWish()" class="inline-flex gap-2 items-center w-full justify-center icon-outlet">
+                <mat-icon class="w-6 h-6" svgIcon="heart"></mat-icon>
+                <span class="text-xs">Избранное</span>
+              </div>
+              <!-- <app-icons-common
+                [type]="'heart'"
+                [text]="'Избранное'"
+                [wishState]="product.isWish"
+
+              ></app-icons-common> -->
+          </div>
+          <button
+          (click)="showModal()"
+          [ngClass]="{
+            'hover:bg-red-600 group-hover:text-red-600 group-hover:hover:text-white group:text-white group-hover:border group-hover:border-red-600 group-hover:border-solid group-hover:rounded-full': product.countInfo && !product.isDelivery,
+            'hover:bg-gray-500 group-hover:bg-gray-500 group:text-white': !product.countInfo,
+            'hover:bg-blue-500 group-hover:bg-blue-500 group:text-white': product.countInfo && product.isDelivery
+          }"
+          class="px-4 py-2 rounded-md w-full transition-all group:bg-white">
+          {{ btnInfo }}
+        </button>
+
+        </div>
+        <div class="static grid grid-cols-3 justify-between gap-2 group-hover:hidden py-3">
+          <div *ngIf="product.countInfo; else countZero" class="flex justify-center">
+            <mat-icon svgIcon="count"></mat-icon>
+            <!-- <app-icons-common
+              [type]="'count'"
+            ></app-icons-common> -->
+          </div>
+          <ng-template #countZero>
+            <div>
+            <mat-icon svgIcon="count-zero"></mat-icon>
+
+              <!-- <app-icons-common
+                [type]="'countZero'"
+              ></app-icons-common> -->
+            </div>
+          </ng-template>
+          <div class="flex justify-center">
+            <mat-icon class="hover:text-red-600" (click)="initWish()" svgIcon="heart"></mat-icon>
+
+            <!-- <app-icons-common
+              [type]="'heart'"
+              [wishState]="product.isWish"
+              (click)="initWish()"
+            ></app-icons-common> -->
+          </div>
+          <div class="flex justify-center">
+            <mat-icon svgIcon="basket"></mat-icon>
+
+            <!-- <app-icons-common
+              [type]="'basket'"
+            ></app-icons-common> -->
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="1">
+      <!-- <div class="text-center">
+        <a [routerLink]="['/product/', product.stringKey]" class="block">
+          <div class="relative">
+            <img [src]="pathImage" alt="Product Image" class="object-cover w-full h-48 z-10">
+            <div class="absolute top-2 right-2 flex space-x-1">
+              <span *ngIf="product.isDiscounLabel" class="bg-red-500 text-white text-xs px-2 py-1 rounded">{{ (product.discountPrice - product.price).toFixed(2) }} {{ symbol }}</span>
+              <span *ngIf="product.isBestseller" class="bg-yellow-500 text-white text-xs px-2 py-1 rounded">{{ topLabel }}</span>
+              <span *ngIf="product.isNew" class="bg-green-500 text-white text-xs px-2 py-1 rounded">{{ newLabel }}</span>
+            </div>
+          </div>
+          <div class="mt-2">
+            <ng-container *ngIf="product.isDiscounLabel else withoutDiscount">
+              <span class="line-through text-gray-500">{{ product.price.toFixed(2) }}</span>
+              <span class="text-red-500 font-bold">{{ product.discountPrice.toFixed(2) }} {{ symbol }}</span>
+            </ng-container>
+            <ng-template #withoutDiscount>
+              <span class="text-gray-800 font-bold">{{ product.price.toFixed(2) }} {{ symbol }}</span>
+            </ng-template>
+          </div>
+          <div class="text-gray-700 font-medium truncate">{{ product.brand.name }} {{ product.title }}</div>
+        </a>
+      </div> -->
+    </ng-container>
+
+    <ng-container *ngSwitchCase="2">
+      <!-- <div class="flex items-start space-x-4">
+        <img [src]="pathImage" alt="Product Image" class="w-32 h-32 object-cover">
+        <div>
+          <a [routerLink]="['/product/', product.stringKey]">
+            <div class="font-medium text-gray-900">{{ product.brand.name }} {{ product.title }}</div>
+            <div class="text-sm text-gray-500">КОД: {{ product.articul }}</div>
+          </a>
+          <p class="mt-2 text-gray-600">{{ product.description }}</p>
+          <div class="mt-2">
+            <ng-container *ngIf="product.isDiscount else withoutDiscount">
+              <span class="line-through text-gray-500">{{ product.price.toFixed(2) }}</span>
+              <span class="text-red-500 font-bold">{{ product.discountPrice.toFixed(2) }} {{ symbol }}</span>
+            </ng-container>
+            <ng-template #withoutDiscount>
+              <span class="text-gray-800 font-bold">{{ product.price.toFixed(2) }} {{ symbol }}</span>
+            </ng-template>
+          </div>
+          <button (click)="showModal()" class="mt-4 px-4 py-2 text-white bg-blue-500 rounded-md">{{ btnInfo }}</button>
+        </div>
+      </div> -->
+    </ng-container>
+  </ng-container>
+</ng-container>

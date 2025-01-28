@@ -1,0 +1,41 @@
+<div class="w-full grid grid-cols-[repeat(auto-fill,_minmax(280px,_1fr))] gap-4 place-content-center">
+  <!-- <button (click)="markForCheck()">dscsd</button> -->
+  <ng-container *ngIf="categories$ | async as data">
+    <ng-container *ngIf="!showSubs">
+      <ng-container *ngFor="let category of data; let i = index">
+        <app-category-item  *ngIf="category.isMain === true"
+          (showSubsChange)="showSubsChanged($event, i)"
+          [category]="category"
+          [index]="i">
+        </app-category-item>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="showSubs && subIndex > -1 && data && data[subIndex]">
+      <ng-container *ngIf="data[subIndex] && data[subIndex]?.child.length > 0">
+        <ng-container *ngFor="let category of data[subIndex].child; let i = index">
+          <app-category-item
+            [category]="category"
+            [index]="i"
+            (click)="showChildProductChanged(data[subIndex].stringKey)">
+          </app-category-item>
+        </ng-container>
+        <p
+          *ngIf="data[subIndex].title !== 'Элементы крепления'"
+          class="show-all-cat"
+          (click)="showSubsChanged(true, subIndex)"
+        >
+          Посмотреть все {{ data[subIndex].title }}
+        </p>
+        <p class="show-all-cat color-sale mt-1em" (click)="showAllMainChanged()">Назад</p>
+      </ng-container>
+
+      <!-- <app-child-categories
+        [currentCategory]="data[subIndex]"
+        [showSubCategory]="true"
+        (showAllMainChange)="showAllMainChanged()"
+        (showChildProductChange)="showChildProductChanged($event)"
+        (showSubChange)="showSubsChanged($event, subIndex)">
+      </app-child-categories> -->
+    </ng-container>
+  </ng-container>
+</div>

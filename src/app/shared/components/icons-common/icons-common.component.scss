@@ -1,0 +1,18 @@
+.icon-svg.wish {
+  fill: #858585;
+  transition: all 0.2s;
+}
+
+.icon-svg.wish path {
+  transition: all 0.2s;
+}
+
+.icon-heart:hover .icon-svg.wish path {
+  fill: #e31e24 !important;
+  transition: all 0.2s;
+}
+
+.wish-wrapper:hover .icon-svg.wish path {
+  fill: #e31e24 !important;
+  transition: all 0.2s;
+}

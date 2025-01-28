@@ -1,0 +1,80 @@
+<div class="w-full">
+  <button (click)="markChanges()" class="bg-gray-700 text-white rounded-md px-4 py-2">Click to marc changes</button>
+  <ng-container *ngIf="categoryProducts$ | async as data">
+  <div class="container-inline" *ngIf="categoryProductHelper && data && categories">
+    <!-- <app-products-filter [categories]="categories" [categoryProductHelper]="categoryProductHelper"
+      (filterChange)="filterChanged($event)"></app-products-filter> -->
+    <div class="right-container" *ngIf="data.products && data.products.length > 0 else emptyCategory">
+
+
+      <main id="main" class="site-main">
+        <div class="shop-control-bar">
+          <h1 class="woocommerce-products-header__title page-title">{{currentCategory.title}}</h1>
+          <ul class="shop-view-switcher nav nav-tabs" role="tablist">
+            <li class="nav-item"><a class="nav-link" [ngClass]="{'active': gridType === 0}"
+                (click)="changeGrid(0)"><i class="fa fa-th" aria-hidden="true"></i></a></li>
+            <li class="nav-item"><a class="nav-link" [ngClass]="{'active': gridType === 2}"
+                (click)="changeGrid(2)"><i class="fa fa-list" aria-hidden="true"></i></a></li>
+          </ul>
+            <div class="d-inline-block w-25 mr-1em mw-200 min-w-170">
+              <select (change)="changeCount($event);" placeholder="Отображать по" class="techmarket-wc-wppp-select c-select">
+                <option value="" disabled selected hidden class="color-grey" style="color:gray">Отображать по {{currentTake}}</option>
+                <option value="20">Отображать 20</option>
+                <option value="40">Отображать 40</option>
+            </select>
+            </div>
+            <div class="d-inline-block w-25 mr-1em mw-200 min-w-170">
+              <select (change)="changeOrderBy($event);" placeholder="Сортировка" class="techmarket-wc-wppp-select c-select">
+                  <option value="" disabled selected hidden class="color-grey" style="color:gray">{{getOrderTitle()}}</option>
+                  <option *ngFor="let item of orderBy; let i=index" [value]="+item.id">{{item.title}}</option>
+            </select>
+            </div>
+        </div>
+
+        <div class="tab-content">
+          <div class="product-main-grid-wrapper" [ngClass]="{'active': gridType === 0}" *ngIf="data && data.products">
+            <div class="w-100 products-grid">
+              <!-- {{categoryProducts.products | json}} -->
+              <ng-container *ngFor="let product of data.products; let i=index">
+                  <app-product-item [topLabel]="topLabel" [newLabel]="newLabel"  [isGrid]="false" [gridType]="0" [product]='product' class="product-main-grid-container"></app-product-item>
+                  <div class="main-separator-inner"
+                      *ngIf="(i + 1) % productInLine === 0"
+                      [ngClass]="{'main-separator-white': i === (data.products.length - 1)}"></div>
+              </ng-container>
+          </div>
+          </div>
+          <div id="list-view-small" class="tab-pane " [ngClass]="{'active': gridType === 2}">
+            <div class="woocommerce columns-5">
+              <div class="products">
+                <!-- <app-product-item [topLabel]="topLabel" [newLabel]="newLabel"  [isGrid]="false" [gridType]="2" [last]="i === categoryProducts.products.length - 1"
+                  *ngFor="let product of categoryProducts.products; let i=index" [product]='product'  [index]="i"
+                  class="list-view-small product type-product product-type-simple">
+                </app-product-item> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shop-control-bar-bottom">
+          <p class="woocommerce-result-count"> Показано
+            {{categoryProductHelper.paginator.countStart}}–{{categoryProductHelper.paginator.countFinish}} из
+            {{categoryProductHelper.paginator.countTotal}}
+            товара(ов) </p>
+          <nav class="woocommerce-pagination">
+            <app-paginator [paginator]="categoryProductHelper.paginator" (changePaginator)="changePage($event)">
+            </app-paginator>
+          </nav>
+        </div>
+      </main>
+    </div>
+
+    <ng-template #emptyCategory>
+        <div class="error-container">
+          <p>По Вашем запросу ничего не нашлось.</p>
+          <a (click)="resetState()" class="error-link pointer">Сбросить фильтр</a>
+        </div>
+      </ng-template>
+
+  </div>
+</ng-container>
+ </div>

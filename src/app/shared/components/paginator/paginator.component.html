@@ -1,0 +1,94 @@
+<nav class="woocommerce-pagination">
+  <ng-container class="page-numbers" [ngSwitch]="type">
+    <ng-container *ngSwitchCase="0">
+      <li><a class="prev page-numbers pointer" (click)="changePage(paginator.page - 1)" *ngIf="paginator.page > 1">←</a>
+      </li>
+      <li><a class="page-numbers pointer"
+             *ngFor="let item of countPages(paginator.pageCount).fill(1); let i=index"
+             (click)="changePage(i + 1)"
+             [ngClass]="{'current': paginator.page === i + 1 }">{{i + 1}}</a></li>
+      <li><a class="next page-numbers pointer" (click)="changePage(paginator.page + 1)"
+             *ngIf="paginator.pageCount != paginator.page">→</a></li>
+    </ng-container>
+    <ng-container *ngSwitchCase="1">
+      <li><a class="prev page-numbers pointer" (click)="changePage(paginator.page - 1)" *ngIf="paginator.page > 1">←</a>
+      </li>
+      <li><a class="page-numbers pointer" (click)="changePage(1)" [ngClass]="{'current': paginator.page === 1 }">1</a>
+      </li>
+      <li><a class="page-numbers pointer" (click)="changePage(2)" [ngClass]="{'current': paginator.page === 2 }">2</a>
+      </li>
+      <li><a class="page-numbers pointer" (click)="changePage(3)">3</a></li>
+      <li><span class="page-numbers">...</span></li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.pageCount)">{{paginator.pageCount}}</a></li>
+      <li><a class="next page-numbers pointer" (click)="changePage(paginator.page + 1)"
+             *ngIf="paginator.pageCount != paginator.page">→</a></li>
+    </ng-container>
+    <ng-container *ngSwitchCase="2">
+      <li><a class="prev page-numbers pointer" (click)="changePage(paginator.page - 1)">←</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(1)">1</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(2)">2</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(3)" [ngClass]="{'current': paginator.page === 3 }">3</a>
+      </li>
+      <li><a class="page-numbers pointer" (click)="changePage(4)" [ngClass]="{'current': paginator.page === 4 }">4</a>
+      </li>
+      <li><a class="page-numbers pointer" (click)="changePage(5)" [ngClass]="{'current': paginator.page === 5 }">5</a>
+      </li>
+      <li><a class="page-numbers pointer" (click)="changePage(6)" *ngIf="paginator.page >= 4">6</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(7)" *ngIf="paginator.page >= 5">7</a></li>
+      <li><span class="page-numbers">...</span></li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.pageCount)">{{paginator.pageCount}}</a></li>
+      <li><a class="next page-numbers pointer" (click)="changePage(paginator.page + 1)">→</a></li>
+    </ng-container>
+    <ng-container *ngSwitchCase="3">
+      <li><a class="prev page-numbers pointer" (click)="changePage(paginator.page - 1)">←</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(1)">1</a></li>
+      <li><span class="page-numbers">...</span></li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.page - 2)">{{paginator.page - 2}}</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.page - 1)">{{paginator.page - 1}}</a></li>
+      <li><a class="page-numbers pointer current">{{paginator.page}}</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.page + 1)">{{paginator.page + 1}}</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.page + 2)">{{paginator.page + 2}}</a></li>
+      <li><span class="page-numbers">...</span></li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.pageCount)">{{paginator.pageCount}}</a></li>
+      <li><a class="next page-numbers pointer" (click)="changePage(paginator.page + 1)">→</a></li>
+    </ng-container>
+    <ng-container *ngSwitchCase="4">
+      <li><a class="prev page-numbers pointer" (click)="changePage(paginator.page - 1)">←</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(1)">1</a></li>
+      <li><span class="page-numbers">...</span></li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.pageCount - 6)"
+             *ngIf="paginator.page === paginator.pageCount - 4">{{paginator.pageCount - 6}}</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.pageCount - 5)"
+             *ngIf="paginator.page >= paginator.pageCount - 4">{{paginator.pageCount - 5}}</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.pageCount - 4)"
+             [ngClass]="{'current': paginator.page === paginator.pageCount - 4 }">{{paginator.pageCount - 4}}</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.pageCount - 3)"
+             [ngClass]="{'current': paginator.page === paginator.pageCount - 3 }">{{paginator.pageCount - 3}}</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.pageCount - 2)">{{paginator.pageCount - 2}}</a>
+      </li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.pageCount - 1)">{{paginator.pageCount - 1}}</a>
+      </li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.pageCount)">{{paginator.pageCount}}</a></li>
+      <li><a class="next page-numbers pointer" (click)="changePage(paginator.page + 1)">→</a></li>
+    </ng-container>
+    <ng-container *ngSwitchCase="5">
+      <li><a class="prev page-numbers pointer" (click)="changePage(paginator.page - 1)">←</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(1)">1</a></li>
+      <li><span class="page-numbers">...</span></li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.pageCount - 4)"
+             *ngIf="paginator.page === paginator.pageCount - 2">{{paginator.pageCount - 4}}</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.pageCount - 3)"
+             *ngIf="paginator.page >= paginator.pageCount - 2">{{paginator.pageCount - 3}}</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.pageCount - 2)"
+             [ngClass]="{'current': paginator.page === paginator.pageCount - 2 }">{{paginator.pageCount - 2}}</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.pageCount - 1)"
+             [ngClass]="{'current': paginator.page === paginator.pageCount - 1 }">{{paginator.pageCount - 1}}</a></li>
+      <li><a class="page-numbers pointer" (click)="changePage(paginator.pageCount)"
+             [ngClass]="{'current': paginator.page === paginator.pageCount }">{{paginator.pageCount}}</a></li>
+      <li><a class="next page-numbers pointer" (click)="changePage(paginator.page + 1)"
+             *ngIf="paginator.page != paginator.pageCount">→</a></li>
+    </ng-container>
+    <ng-container *ngSwitchCase="6">
+    </ng-container>
+  </ng-container>
+</nav>

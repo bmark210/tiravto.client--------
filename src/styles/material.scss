@@ -1,0 +1,13 @@
+.mat-mdc-button .mat-mdc-button-persistent-ripple::before {
+  content: unset !important;
+  background-color: unset !important;
+}
+
+
+.ant-layout-header {
+  height: unset;
+  padding: unset;
+  color: unset;
+  line-height: unset;
+  background: unset;
+}

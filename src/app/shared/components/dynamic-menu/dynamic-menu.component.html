@@ -1,0 +1,38 @@
+<!-- <ng-container *ngFor="let item of header; let i=index">
+  <ng-container *ngIf="i < menuIntensifies">
+    <ng-container *ngIf="item.items?.length === 0 else dropDown">
+      <button class="menu-button" mat-button (click)="menuNavigate(i,-1)">{{item.name}}</button>
+    </ng-container>
+    <ng-template #dropDown>
+      <button style="padding: 0 0.5em" class="menu-button" mat-button [matMenuTriggerFor]="menu" menuOpen="true">{{item.name}}
+        </button><mat-icon class="menu-caret">keyboard_arrow_down</mat-icon>
+      <mat-menu #menu="matMenu">
+        <button class="menu-button-item" mat-menu-item *ngFor="let subitem of item.items; let j=index"
+          (click)="menuNavigate(i,j)">{{subitem.name}}</button>
+      </mat-menu>
+    </ng-template>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="menuIntensifies < header?.length">
+<button class="menu-button" mat-button [matMenuTriggerFor]="menuAll" menuOpen="true"><mat-icon class="more-vert">more_vert</mat-icon></button>
+
+<mat-menu #menuAll="matMenu">
+  <ng-container *ngFor="let item of header; let i=index">
+    <ng-container *ngIf="i > menuIntensifies - 1">
+      <ng-container *ngIf="item.items.length === 0 else dropDown">
+        <button class="menu-button-item" mat-menu-item (click)="menuNavigate(i,-1)">{{item.name}}</button>
+      </ng-container>
+      <ng-template #dropDown>
+        <button class="menu-button-item" mat-menu-item [matMenuTriggerFor]="subMenu" menuOpen="false" (click)="menuNavigate(i,-1)">{{item.name}}
+        </button>
+
+        <mat-menu #subMenu="matMenu">
+          <button class="menu-button-item" *ngFor="let subitem of item.items; let j=index" mat-menu-item
+            (click)="menuNavigate(i,j)">{{subitem.name}}</button>
+        </mat-menu>
+      </ng-template>
+    </ng-container>
+  </ng-container>
+</mat-menu>
+</ng-container> -->

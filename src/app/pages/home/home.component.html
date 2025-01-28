@@ -1,0 +1,281 @@
+
+<div class="flex">
+  <!-- <div class="width-284 inline-block">
+    <ng-container *ngFor="let category of isSlicedMenu ? categories.slice(0, 10) : categories">
+      <ng-container *ngIf="category.child.length > 0; else withoutChild">
+        <a
+          mat-menu-item
+          class="menu-item"
+          matHoverMenu
+          [matMenuTriggerFor]="childMenu">
+          {{ category.title }}
+        </a>
+
+        <mat-menu
+          class="w-full"
+          yPosition="below"
+          #childMenu>
+          <ng-container *ngFor="let subCategory of category.child">
+            <a
+              routerLink="/products/"
+              [queryParams]="getParams(subCategory.stringKey)"
+              mat-menu-item>
+              {{ subCategory.title }}
+            </a>
+          </ng-container>
+          <img
+            src="https://avatars.mds.yandex.net/i?id=1dd15dc4f4a1c14cd000ddea06912f5565fa8f3f-4326244-images-thumbs&n=13"
+            class="px-2 pt-2" />
+        </mat-menu>
+      </ng-container>
+
+      <ng-template #withoutChild>
+        <a
+          mat-menu-item
+          routerLink="/products/"
+          [queryParams]="getParams(category.stringKey)">
+          {{ category.title }}
+        </a>
+      </ng-template>
+    </ng-container>
+  </div> -->
+
+  <!-- <button [matMenuTriggerFor]="mainMenu" mat-menu-item>dsfv</button>
+  <mat-menu hasBackdrop="false" yPosition="below" #mainMenu="matMenu" style="transition: all 1s ease-in-out;" class="mt-8 w-[260px]">
+    <ng-container *ngFor="let category of isSlicedMenu ? categories.slice(0,10) : categories">
+      <ng-container *ngIf="category.child.length > 0; else withoutChild">
+        <a routerLink="/products/"
+           [queryParams]="getParams(category.stringKey)"
+           mat-menu-item
+           matHoverMenu
+           [matMenuTriggerFor]="childMenu">
+          {{ category.title }}
+        </a>
+
+        <mat-menu yPosition="below" #childMenu="matMenu">
+          <ng-container *ngFor="let subCategory of category.child">
+            <a routerLink="/products/"
+               [queryParams]="getParams(subCategory.stringKey)"
+               mat-menu-item>
+              {{ subCategory.title }}
+            </a>
+          </ng-container>
+          <img src="https://avatars.mds.yandex.net/i?id=1dd15dc4f4a1c14cd000ddea06912f5565fa8f3f-4326244-images-thumbs&n=13"
+               class="px-2 pt-2">
+        </mat-menu>
+      </ng-container>
+
+      <ng-template #withoutChild>
+        <a routerLink="/products/"
+           [queryParams]="getParams(category.stringKey)"
+           mat-menu-item>
+          {{ category.title }}
+        </a>
+      </ng-template>
+    </ng-container>
+
+    <button
+      (click)="isSlicedMenu = !isSlicedMenu"
+      [ngClass]="{'rotate-180': !isSlicedMenu}"
+      class="w-full flex items-center justify-center transition-transform"
+      preventMenuClose>
+      <mat-icon>expand_more</mat-icon>
+    </button>
+  </mat-menu> -->
+
+  <!-- <div class="slider-wrapper d-inline-block">
+    <owl-carousel-o *ngIf="slider && slider.items" [options]="mySlideOptions" id="owl-slider" >
+      <ng-container *ngFor="let slide of slider.items; let i=index" data-index="i">
+        <ng-template carouselSlide [id]="slide.id.toString()">
+          <div class="item bg-image" [ngStyle]="{'background-color': slide.backgroundColor, 'background-image': slide.backgroundImage, 'height': 'fit-content'}">
+            <div class="slide-wrapper h-100" *ngIf="!slide.onlyImage; else onlyImage" [ngClass]="{'slide-active': i === activeMainSliderIndex}">
+              <div  class="slide-info-wrapper p-relative">
+                <div class="slide-abs">
+
+                    <p class="slide-title" [ngClass]="{'slide-active': i === activeMainSliderIndex}">{{slide.title}}</p>
+                    <p class="slide-title2" [ngClass]="{'slide-active': i === activeMainSliderIndex}">{{slide.titleSecond}}</p>
+                    <p class="slide-title3" [ngClass]="{'slide-active': i === activeMainSliderIndex}"></p>
+
+                  <a class="slide-btn" href="{{slide.url}}" target="_blank">{{slide.buttonName}} <i class="fa fa-long-arrow-right"></i></a>
+                </div>
+              </div>
+              <div class="wrapper-image m-auto" [ngClass]="{'slide-active': i === activeMainSliderIndex}">
+                <img class="img-slider-only" [src]="slide.image">
+              </div>
+            </div>
+            <ng-template #onlyImage>
+
+            </ng-template>
+          </div>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+
+<div class="home-menu-wrapper">
+  <div class="features-list" *ngIf="menus">
+      <div class="features">
+        <div class="feature pointer" *ngFor="let menu of menus.sliderDown; let i=index" (click)="navigateTo(menu.url)">
+          <div class="media">
+            <div class="media-body feature-text">
+                <div class="icon-botton-slider p-relative" [innerHTML]="getIconByStringKey(menu.stringKey) | safeHtml"></div>
+                <div class="icon-botton-slider ml-2em" ><h5 class="mt-0"><a (click)="headerMenuNavigate(menu.url, menu.stringKey)">{{menu.name}}</a></h5></div>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="feature pointer">
+            <div class="media" (click)="goToTecDoc()">
+              <div class="media-body feature-text">
+                <div class="icon-botton-slider p-relative"><span class="lnr lnr-car car-tecdoc-icon color-icon"></span></div>
+                <div class="icon-botton-slider ml-2em"><h5 class="mt-0"><a>TECDOC</a></h5></div>
+              </div>
+            </div>
+          </div>
+        <div class="feature pointer">
+          <div class="media" routerLink="/pages/order">
+            <div class="media-body feature-text">
+              <div class="icon-botton-slider p-relative"><span class="lnr lnr-select color-icon"></span></div>
+              <div class="icon-botton-slider ml-2em"><h5 class="mt-0"><a>Как заказать?</a></h5></div>
+            </div>
+          </div>
+        </div>
+        <div class="feature pointer">
+          <div class="media" (click)="goToMailContact()">
+            <div class="media-body feature-text">
+              <div class="icon-botton-slider p-relative"><span class="lnr lnr-bubble color-icon"></span></div>
+              <div class="icon-botton-slider ml-2em"><h5 class="mt-0"><a>Задать вопрос менеджеру</a></h5></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+  </div> -->
+</div>
+
+ <div class="">
+<div class="flex gap-3">
+<app-home-related *ngIf="homeArticles" [articles]="homeArticles" class="news-block"></app-home-related>
+<!-- <div class="home-menu-wrapper t-align-center mobile-only" *ngIf="productsHome">
+  <div class="home-prod-wrapper">
+      <div class="home-prod-title" *ngIf="productsHome.section[0].products.length > 0" (click)="sectionActive = 0" [ngClass]="{'active': sectionActive === 0}">{{productsHome.section[0].title}}</div>
+      <div class="home-prod-title" *ngIf="productsHome.section[2].products.length > 0" (click)="sectionActive = 2" [ngClass]="{'active': sectionActive === 2}">{{productsHome.section[2].title}}</div>
+      <div class="home-prod-title" *ngIf="productsHome.section[1].products.length > 0" (click)="sectionActive = 1" [ngClass]="{'active': sectionActive === 1}">{{productsHome.section[1].title}}</div>
+    </div>
+
+</div> -->
+<div class="w-full">
+  <!-- <div class="news-related-wrapper" *ngIf="productsHome"> -->
+    <div class="news-related-wrapper" >
+
+
+      <!-- <div class="main-separator-outer" [ngClass]="{'mobile-owl-prod': screenType !== 0}"></div> -->
+
+    <div class="home-prod-wrapper">
+      <div class="mb-4 min-h-fit" *ngIf="productsHome">
+        <div class="inline-flex w-full align-bottom justify-center items-center gap-4 cursor-pointer">
+            <div class="text-sm px-1 py-2 border-b border-solid border-gray-300 transition-all hover:bg-gray-100" *ngIf="productsHome.section[0].products.length > 0" (click)="sectionActive = 0" [ngClass]="{'!border-red-500 border-b-[2px]': sectionActive === 0}">{{productsHome.section[0].title}}</div>
+            <div class="text-sm px-1 py-2 border-b border-solid border-gray-300 transition-all hover:bg-gray-100" *ngIf="productsHome.section[2].products.length > 0" (click)="sectionActive = 2" [ngClass]="{'!border-red-500 border-b-[2px]': sectionActive === 2}">{{productsHome.section[2].title}}</div>
+            <div class="text-sm px-1 py-2 border-b border-solid border-gray-300 transition-all hover:bg-gray-100" *ngIf="productsHome.section[1].products.length > 0" (click)="sectionActive = 1" [ngClass]="{'!border-red-500 border-b-[2px]': sectionActive === 1}">{{productsHome.section[1].title}}</div>
+          </div>
+      </div>
+      <ng-container [ngSwitch]="sectionActive">
+        <ng-container *ngSwitchCase="0">
+          <!-- <owl-carousel-o [options]="myRelatedOptions" [carouselClasses]="['owl-theme', 'sliding', 'dots-abs']" *ngIf="screenType === 0 else mobileProdSale"> -->
+            <!-- <ng-container *ngFor="let sections of products; let i=index"> -->
+              <!-- <p>{{sections.title}}</p> -->
+              <!-- <ng-template carouselSlide> -->
+                <!-- <div class="item owl-60bt"> -->
+                  <!-- <div class="tab-content"> -->
+                    <!-- <div id="grid" class="tab-pane active" role="tabpanel" aria-expanded="true"> -->
+                      <div class="">
+                        <div class="grid grid-cols-[repeat(auto-fill,_minmax(280px,_1fr))] gap-4 place-content-center">
+                          <ng-container *ngIf="products$ | async as data">
+                          <ng-container *ngFor="let product of data[0]['products']; let j=index">
+                            <app-product-item [newLabel]="newLabel" [isGrid]="false" [gridType]="0" [fixedLine]="4"
+                                 [product]='product' class="product-main-grid-container"></app-product-item>
+                          </ng-container>
+                        </ng-container>
+                        </div>
+                      <!-- </div> -->
+                    <!-- </div> -->
+                  <!-- </div> -->
+                </div>
+              <!-- </ng-template> -->
+            <!-- </ng-container> -->
+          <!-- </owl-carousel-o> -->
+        </ng-container>
+        <ng-container *ngSwitchCase="1">
+          <!-- <owl-carousel-o [options]="myRelatedOptions" [carouselClasses]="['owl-theme', 'sliding', 'dots-abs']" *ngIf="screenType === 0 else mobileProdSale">
+            <ng-container *ngFor="let productsContainer of sectionDesktopNew; let i=index">
+              <ng-template carouselSlide> -->
+                <div class="item owl-60bt">
+                  <div class="tab-content">
+                    <div id="grid" class="tab-pane active" role="tabpanel" aria-expanded="true">
+                      <div class="">
+                        <div class="grid grid-cols-[repeat(auto-fill,_minmax(280px,_1fr))] gap-4 place-content-center">
+                          <ng-container *ngIf="products$ | async as data">
+                            <ng-container *ngFor="let product of data[1]?.['products']; let j=index">
+                              <app-product-item [topLabel]="topLabel" [newLabel]="newLabel" [isGrid]="false" [gridType]="0" [fixedLine]="4" [index]="j"
+                                   [product]='product' class="product-main-grid-container"></app-product-item>
+                            </ng-container>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <!-- </ng-template>
+            </ng-container>
+          </owl-carousel-o> -->
+        </ng-container>
+        <ng-container *ngSwitchCase="2">
+          <!-- <owl-carousel-o [options]="myRelatedOptions" [carouselClasses]="['owl-theme', 'sliding', 'dots-abs']" *ngIf="screenType === 0 else mobileProdSale">
+            <ng-container *ngFor="let productsContainer of sectionDesktopTop; let i=index">
+              <ng-template carouselSlide> -->
+                <div class="">
+                  <div class="">
+                    <div id="grid" class="tab-pane active" role="tabpanel" aria-expanded="true">
+                      <div class="">
+                        <div class="grid grid-cols-[repeat(auto-fill,_minmax(280px,_1fr))] gap-4 place-content-center">
+                          <ng-container *ngIf="products$ | async as data">
+                          <ng-container *ngFor="let product of data[2]['products']; let j=index">
+                            <app-product-item [topLabel]="topLabel" [newLabel]="newLabel" [isGrid]="false" [gridType]="0" [fixedLine]="4"
+                                 [product]='product' class="product-main-grid-container"></app-product-item>
+                            <!-- <div class="main-separator-inner" *ngIf="(j + 1) % 4 === 0"></div> -->
+                          </ng-container>
+                        </ng-container>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <!-- </ng-template>
+            </ng-container>
+          </owl-carousel-o> -->
+        </ng-container>
+      </ng-container>
+
+
+      <ng-template #mobileProdSale>
+        <owl-carousel-o [options]="myRelatedOptionsMobile">
+          <ng-container *ngFor="let product of productsHome.section[sectionActive].products; let i=index">
+            <ng-template carouselSlide>
+              <div class="item">
+                <app-product-item [topLabel]="topLabel" [newLabel]="newLabel" [isGrid]="false" [gridType]="1" [product]="product" [last]="i === productsHome.section[sectionActive].products.length - 1" [index]="i" class="card-prod-wrapper"></app-product-item>
+              </div>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+        <div class="main-separator-outer-mobile"></div>
+      </ng-template>
+    </div>
+
+  </div>
+</div>
+</div>
+</div>

@@ -1,0 +1,7 @@
+.mat-icon path {
+  transition: all 0.2s ease-in-out;
+}
+
+.icon-outlet:hover .mat-icon[svgicon="heart"] svg path {
+  fill: red;
+}

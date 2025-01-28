@@ -1,0 +1,12 @@
+<!-- <div class="clear-left" *ngIf="index % categoryType === 0"></div> -->
+
+<a (click)="showSubs()" class="flex flex-col gap-3 p-4 cursor-pointer">
+  <div class="">
+    <img [src]="pathImage" alt="Category Image" class="w-full h-auto object-cover">
+  </div>
+  <div class="overflow-hidden text-ellipsis whitespace-pre-wrap line-clamp-2">
+    {{ category.title }}
+  </div>
+</a>
+
+<!-- <div class="clear-right"></div> -->

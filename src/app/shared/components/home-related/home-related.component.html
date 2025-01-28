@@ -1,0 +1,58 @@
+<div class="full-only">
+  <owl-carousel-o [options]="mySlideOptions">
+    <ng-container *ngFor="let articleGroup of articleContainer; let i=index">
+      <ng-template carouselSlide>
+      <div class="item">
+<!--        <div class="banner text-in-left"> <a href="#" *ngFor="let article of articleGroup; let j=index" (click)="navigateTo(article.stringKey)">-->
+<!--          <div class="banner-bg" style="background-size: cover; background-position: center center; background-image: url( https://demo2.chethemes.com/techmarket/wp-content/uploads/2017/03/banner-10.jpg ); height: 245px;">-->
+<!--            <div class="caption">-->
+<!--              <div class="banner-info">-->
+<!--                <h4 class="pretitle">Best Gift Idea</h4>-->
+<!--                <h3 class="title"><strong>Mini Two Wheel</strong> <br>Self Balancing <br> Scooter</h3>-->
+<!--              </div> <span class="price"><ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>339.99</span></ins>-->
+<!--                  <del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>689</span></del></span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </a></div>-->
+        <!-- <a class="pointer" *ngFor="let article of articleGroup; let j=index" (click)="navigateTo(article.stringKey)">
+          <div class="mb-10">
+            <div class="news-item p-relative">
+              <img style="width: 100%;border: unset" class="news-item" src="{{article.image}}">
+              <div class="caption news">
+                <div class="banner-info">
+                  <p class="banner-title date">{{article.createdStr}}</p>
+                  <p class="banner-title info"><strong>{{article.title}}</strong></p>
+                  <p class="banner-title type" [ngClass]="{ 'redcay': article.type === 1}">{{article.typeStr}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a> -->
+      </div>
+      </ng-template>
+    </ng-container>
+  </owl-carousel-o>
+</div>
+
+<div>
+  <!-- <owl-carousel-o [options]="mySlideMobileOptions">
+    <ng-container *ngFor="let article of articles; let i=index">
+      <ng-template carouselSlide>
+        <div class="item">
+          <a class="pointer" (click)="navigateTo(article.stringKey)">
+            <div class="news-item p-relative">
+              <img class="news-item" [src]="article.image">
+              <div class="caption news">
+                <div class="banner-info">
+                  <p class="banner-title date">{{article.createdStr}}</p>
+                  <p class="banner-title info"><strong>{{article.title}}</strong></p>
+                  <p class="banner-title type" [ngClass]="{'cayman': article.type === 0, 'redcay': article.type === 1}">{{article.typeStr}}</p>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </ng-template>
+    </ng-container>
+  </owl-carousel-o> -->
+</div>

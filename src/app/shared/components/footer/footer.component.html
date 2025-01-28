@@ -1,0 +1,117 @@
+<!-- <ngx-smart-modal #contact identifier="contact">
+  <div class="wrapper-p10 mt-10p">
+    <span class="product-title mt-10p">Форма обратной связи</span>
+    <form class="wpcf7-form mt-10p" *ngIf="contactForm" [formGroup]="contactForm">
+      <div class="form-group">
+        <label>Ваше имя</label><br>
+        <span class="wpcf7-form-control-wrap subject">
+          <input formControlName="Name"
+            [ngClass]="{'input-error': !contactForm.value.Name || contactForm.value.Name.length == 0 ||
+        contactForm.controls.Name.hasError('pattern') == true || contactForm.controls.Name.hasError('maxLength') == true}" type="text"
+            name="subject" value="" size="40" class="wpcf7-form-control wpcf7-text input-text"
+            aria-invalid="false"></span>
+      </div>
+      <div class="form-group">
+        <label>Номер телефона или email</label><br>
+        <span class="wpcf7-form-control-wrap subject">
+          <input formControlName="EmailPhone" [ngClass]="{'input-error': !contactForm.value.EmailPhone || contactForm.value.EmailPhone.length == 0 ||
+        contactForm.controls.EmailPhone.hasError('pattern') == true}" type="text" name="subject" value="" size="40"
+            class="wpcf7-form-control wpcf7-text input-text" aria-invalid="false"></span>
+        <p class="cus-info">Номер телефона в формате +0 от 11-ти до 13-ти символов </p>
+      </div>
+      <div class="form-group">
+        <label>Ваше сообщение</label><br>
+        <span class="wpcf7-form-control-wrap your-message">
+          <textarea formControlName="Comment" name="your-message" cols="40" rows="10"
+            class="wpcf7-form-control wpcf7-textarea" aria-invalid="false"></textarea></span>
+      </div>
+
+      <div class="form-group">
+        <re-captcha *ngIf="showContactForm" (resolved)="resolved($event)" [size]="'normal'"
+          siteKey="{{publicKey}}" #reCaptcha></re-captcha>
+      </div>
+
+      <div class="form-group clearfix">
+        <p><input type="submit" value="Отправить" class="wpcf7-form-control wpcf7-submit float-l" (click)="contactUs()"
+            [ngClass]="{'button-disable': contactForm.invalid === true}">
+          <button class="button-close float-r" (click)="contact.close()"
+            (click)="showContactForm = false">Назад</button></p>
+      </div>
+      <div class="wpcf7-response-output wpcf7-display-none"></div>
+    </form>
+  </div>
+</ngx-smart-modal> -->
+
+<footer>
+  <div class="footer-devider"></div>
+  <div class="container">
+    <div class="footer-info" *ngIf="footerInfo">{{footerInfo.footerInfo}}</div>
+
+    <div class="flex flex-wrap justify-start">
+      <div class="footer-item fcol-1">
+        <div class="footer-wrapper">
+          <img class="footer-img" src="https://tiravto.com/assets/logo-small.png">
+          <a class="footer-icon-title pointer" [routerLink]="['/catalog']">
+            <mat-icon class="footer-icon">filter_none</mat-icon>Каталоги
+          </a>
+          <a class="footer-icon-title">
+            <mat-icon class="footer-icon">credit_card</mat-icon>Оплата картой Радуга
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-item fcol-2">
+        <div class="footer-wrapper">
+          <p class="footer-title">Техподдержка</p>
+          <a class="footer-title-item pointer" [routerLink]="['/pages/order']">Как заказать?</a>
+          <a class="footer-title-item pointer" [routerLink]="['/pages/delivery']">Оплата и доставка</a>
+          <a class="footer-title-item pointer" [routerLink]="['/pages/warranty']">Гарантия и возврат</a>
+<!--          <a class="footer-title-item pointer" *ngIf="footerInfo" (click)="tireNavigate(footerInfo.tireCalculator)">Калькулятор шин</a>-->
+          <!-- <a class="footer-title-item pointer" (click)="goToMailContact()">Поиск по VIN</a> -->
+          <a class="footer-title-item pointer" (click)="goToMailContact()">Задать вопрос менеджеру</a>
+          <a class="footer-title-item pointer" [routerLink]="['/info']">Информация для скачивания</a>
+        </div>
+      </div>
+
+      <div class="footer-item fcol-3">
+        <div class="footer-wrapper">
+          <p class="footer-title">О компании</p>
+          <a class="footer-title-item pointer" [routerLink]="['/pages/history']">О компании</a>
+          <a class="footer-title-item pointer" [routerLink]="['/partners']">Поставщики</a>
+          <a class="footer-title-item pointer" [routerLink]="['/pages/jobs']">Вакансии</a>
+
+          <p class="footer-title mt-1em">Автосервис</p>
+          <a class="footer-title-item pointer" [routerLink]="['/pages/service']">Услуги</a>
+          <a class="footer-title-item pointer" [routerLink]="['/sto']">Запись на СТО</a>
+        </div>
+      </div>
+
+      <div class="footer-item fcol-4" *ngIf="footerInfo">
+        <div class="footer-wrapper">
+          <p class="footer-title">Контакты</p>
+          <ng-container *ngFor="let store of footerInfo.stores; let i=index">
+            <span class="footer-title-item">{{store.title}}, {{store.address}}
+              <ng-container *ngIf="store.phones && store.phones.length > 0">
+                <a class="footer-phone" *ngFor="let phone of store.phones; let j=index"
+                  href="tel:{{phone}}">{{getPhoneTitle(i,j)}}</a>
+              </ng-container>
+            </span>
+          </ng-container>
+          <div class="socials-container" *ngIf="socials && socials.length > 0">
+              <a *ngFor="let social of socials; let i=index" href="{{social.url}}" target="_blank" title="{{social.name}}">
+                <img src="https://mainapi.tiravto.com/Content/Main/{{social.image}}" class="social-icon">
+              </a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="site-info">
+    <div class="container flex justify-between items-center">
+      @if (footerInfo) {
+        <div class="copyright">{{footerInfo.copyright}}</div>
+      }
+      <div class="credit">Powered by <a href="http://it-trends.net/" target="_blank">IT-TREND</a></div>
+    </div>
+  </div>
+</footer>

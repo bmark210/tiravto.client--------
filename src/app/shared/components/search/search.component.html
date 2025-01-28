@@ -1,0 +1,13 @@
+<div class="w-full px-5 h-full" [formGroup]='usersForm'>
+  <div class="flex">
+    <input type="text"
+      class="form-control flex-1" formControlName='userInput' #txtVal (keydown.enter)="Search(txtVal.value)"
+      dir="ltr" value="" name="s" placeholder="Поиск">
+    <div class="input-group-btn">
+      <input type="hidden" id="search-param" name="post_type" value="product">
+      <button type="submit" class="btn btn-search btn-primary" (click)="priceOnlineSearch()"><i class="fa fa-search" aria-hidden="true"></i>
+        <span class="search-btn wide-only"> Поиск </span>
+      </button>
+    </div>
+  </div>
+</div>

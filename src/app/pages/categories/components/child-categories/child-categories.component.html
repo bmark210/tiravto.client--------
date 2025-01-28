@@ -1,0 +1,17 @@
+<div *ngIf="childs && childs.length > 0">
+  <ng-container *ngFor="let category of childs; let i = index">
+    <app-category-item
+      [category]="category"
+      [index]="i"
+      (click)="showChildProducts(i)">
+    </app-category-item>
+  </ng-container>
+  <p
+    class="show-all-cat"
+    (click)="showAll()"
+    *ngIf="currentCategory.title !== 'Элементы крепления'"
+  >
+    Посмотреть все {{ currentCategory.title }}
+  </p>
+  <p class="show-all-cat color-sale mt-1em" (click)="showAllMain()">Назад</p>
+</div>

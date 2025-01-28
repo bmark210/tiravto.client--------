@@ -1,0 +1,207 @@
+<app-custom-mat-menu></app-custom-mat-menu>
+
+<div style="width: 100%;">
+  <button class="text-black" (click)="markChanges()">Marck changes</button>
+  <ng-container *ngIf="isExist === true else notFound">
+    <ng-container *ngIf="product">
+      <div class="wrapper-p10">
+            <div class="title-devider">
+              <div class="product-title">{{product.brand.name}} {{product.title}}
+                <div class="chips-wrapper p-relative">
+                  <div class="chips-container">
+                    <span class="chips-item label-sale text-lowercase" *ngIf="product.isDiscount">{{(product.discountPrice - product.price).toFixed(2)}} {{symbol}}</span>
+                    <span class="chips-item label-hit" *ngIf="product.isBestseller">ХИТ</span>
+                    <span class="chips-item label-new" *ngIf="product.isNew">Новинка</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span class="product-articul">код: {{product.articul}}</span>
+          </div>
+          <!-- {{galleryImages | json}} -->
+      <div class="product-outlet">
+        <div class="product-gallery p-relative"
+             [ngClass]="{'d-none-1120': (!product.images || product.images?.length === 0) &&(!product.tecDocImages || product.tecDocImages?.length === 0) }">
+          <div class="wrapper-p10 t-align-center"
+               [ngClass]="{'one-image': (product.images && product.images?.length <= 1) || (product.tecDocImages && product.tecDocImages?.length <= 1)}">
+              <div *ngIf="galleryImages && galleryImages?.length > 0; else noImage" class="gallery-wrapper">
+                <gallery id="product-gallery"  #gallery (itemClick)="openLightbox($event)" (error)="onLoadError($event)" [items]="galleryImages"></gallery>
+              </div>
+              <ng-template #noImage>
+                <img class="w-image-prod" src="{{noPhotoUrl}}">
+              </ng-template>
+          </div>
+          <div class="wish-wrapper" *ngIf="keyString && !loadError.value">
+            <!-- <app-icons-common [type]="'heart-big'" [text]="''" [wishState]="product.isWish" (click)="initWish()">
+            </app-icons-common> -->
+          </div>
+        </div>
+
+        <!-- <div  class="wrapper-p10"> -->
+          <div style="overflow-x: auto; height: fit-content;" class="product-table">
+            <table style="min-width: 100%; table-layout: auto; width: fit-content;" class="styled-table">
+              <thead>
+                <tr>
+                  <th class="no-wrap">Склад</th>
+                  <th class="no-wrap">Наличие</th>
+                  <th class="no-wrap">Срок поставки</th>
+                  <th class="no-wrap">Ед. изм.</th>
+                  <th class="no-wrap">Цена розн.</th>
+                  <th class="no-wrap">Цена со скидкой</th>
+                  <th class="no-wrap">Кол-во</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let store of product.storeProduct; let i = index" >
+                  <tr [formGroup]="productCountArray.at(i)">
+                  <td>{{ store.store.name }}</td>
+                  <td class="no-wrap">
+                      <ng-container *ngIf="store.count > 3; else realCount">3+</ng-container>
+                      <ng-template #realCount>{{ store.count }}</ng-template>
+                  </td>
+                  <td>
+                    <!-- <div class="delivery-product-page" text-one [text]="store.delivery" [type]="'title'"></div> -->
+                  </td>
+                  <td>
+                      {{ product.unit.symbol }}
+                  </td>
+                  <td class="no-wrap">
+                      {{ product.price.toFixed(2) }} {{ symbol }}
+                  </td>
+                  <td class="no-wrap">
+                      {{ product.discountPrice.toFixed(2) }} {{ symbol }}
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <mat-icon class="input-btn remove" (click)="calculateCount('minus', productCountArray.at(i))">remove</mat-icon>
+                      <input
+                        class="input-box"
+                        type="number"
+                        (input)="calculateCount('press', productCountArray.at(i))"
+                        formControlName="count"
+                      />
+                      <mat-icon class="input-btn add" (click)="calculateCount('plus', productCountArray.at(i))">add</mat-icon>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <button
+                        class="btn-buy"
+                        [disabled]="productCountArray.at(i).value < 1"
+                        (click)="addToBasket(i)">
+                        Купить
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        <!-- </div> -->
+      </div>
+      <div class="handheld-only order" *ngIf="product.storeProduct">
+        <div class="wrapper-p10">
+          <div class="title-devider">
+            <p>В наличии на складах:</p>
+          </div>
+
+          <div class="order-list" *ngFor="let control of productCountArray.controls; let i=index">
+            <div class="wrapper-p10">
+              <mat-accordion *ngIf="isFormGroup(control)" [formGroup]='control'>
+                <mat-expansion-panel [expanded]="product.storeProduct[i].isExpand">
+                  <mat-expansion-panel-header [expandedHeight]="'max-content'" [collapsedHeight]="'max-content'"
+                    (click)="showStore(i)">
+                    <mat-panel-title>{{product.storeProduct[i].store.name}}</mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <mat-list>
+
+                    <div class="order-item info">
+                      <p class="info-item" *ngIf="product.storeProduct[i].count > 3 else realCount"><span>На складе: </span>+3</p>
+                      <ng-template #realCount>
+                          <p class="info-item"><span>На складе: </span>{{product.storeProduct[i].count}}</p>
+                      </ng-template>
+                      <p class="info-item"><span>Ед. изм.: </span><span [innerHtml]="product.unit.symbol"></span></p>
+                      <p class="info-item"><span>Цена/розн: </span>{{product.price.toFixed(2)}}
+                        {{product.currency.symbol}}</p>
+                      <p class="info-item"><span>Скидка: </span>{{product.discount}}%</p>
+                      <p class="info-item"><span>Цена со скидкой: </span>{{product.discountPrice.toFixed(2)}}
+                        {{product.currency.symbol}}</p>
+                      <p class="info-item"><span>Количество: </span> <mat-icon class="input-btn remove" (click)="calculateCount('minus', control)">remove</mat-icon>
+                        <input class="product-count mobile" type="number" (input)="calculateCount('press', control)" formControlName="count">
+                        <mat-icon class="input-btn add" (click)="calculateCount('plus', control)">add</mat-icon></p>
+                      <p class="info-item p-relative"><a class="table-design-btn" (click)="addToBasket(i)">В корзину</a></p>
+                    </div>
+
+                  </mat-list>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <mat-tab-group dynamicHeight animationDuration="0ms"
+                     [selectedIndex]="selectedTab.value"
+                     (selectedIndexChange)="selectedTab.setValue($event)">
+
+        <mat-tab label="Аналоги" *ngIf="analogReady">
+          <ng-template matTabContent>
+            <!-- <app-product-analog [analogHelper]="analogHelper" [symbol]="symbol" (changePaginator)="paginatorChanged($event)"></app-product-analog> -->
+          </ng-template>
+        </mat-tab>
+
+        <mat-tab label="Характеристики" *ngIf="product.options && product.options.length > 0">
+          <ng-template matTabContent>
+            <!-- <app-product-characteristics [product]="product"></app-product-characteristics> -->
+          </ng-template>
+        </mat-tab>
+
+        <ng-container *ngIf="product.brand.isTecDoc">
+          <mat-tab label="Применяемость" *ngIf="aplShow">
+            <ng-template matTabContent>
+              <div class="wrapper-p25">
+                <!-- <app-product-aplly-car [allCarMarks]="allCarMarks"></app-product-aplly-car> -->
+              </div>
+            </ng-template>
+          </mat-tab>
+          <mat-tab label="Комплектующие" *ngIf="product.additionalParts && product.additionalParts.length > 0">
+            <ng-template matTabContent>
+              <div class="wrapper-p25">
+                <!-- <app-product-tecdoc-additional-parts [additionalParts]="product.additionalParts">
+                </app-product-tecdoc-additional-parts> -->
+              </div>
+            </ng-template>
+          </mat-tab>
+          <mat-tab label="OEM-коды" *ngIf="product.oemNumbers && product.oemNumbers.length > 0 ">
+            <ng-template matTabContent>
+              <div class="wrapper-p25">
+                <!-- <app-product-tecdoc-oem [oemParts]="product.oemNumbers"></app-product-tecdoc-oem> -->
+              </div>
+            </ng-template>
+          </mat-tab>
+        </ng-container>
+        <mat-tab label="Описание" *ngIf="product.fullDescription">
+          <ng-template matTabContent>
+            <div class="wrapper-p25 article-style">
+              <div [innerHtml]="product.fullDescription | safeHtml"></div>
+              <!-- <ckeditor [disabled]="true" [editor]="EditorFull"
+                        [(ngModel)]="product.fullDescription">
+              </ckeditor> -->
+            </div>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #notFound>
+    <div class="error-container">
+      <p class="error-title wrapper-p10">Похоже, что такого товара не существует.</p>
+      <a [routerLink]="['/catalog']" class="error-link pointer f-left">Вернуться в каталог</a>
+      <a (click)="backClicked()" class="error-link pointer f-right m-left-10">Вернуться назад</a>
+    </div>
+  </ng-template>
+</div>

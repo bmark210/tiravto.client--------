@@ -1,0 +1,25 @@
+<!-- <nav class="py-3 px-1" *ngIf="isShow">
+  <a [routerLink]="['/']">Главная</a>
+  <ng-container *ngIf="breadcrumbs">
+  <ng-container *ngFor="let item of breadcrumbs.links; let i=index">
+  <span class="delimiter">
+    <i class="fa fa-angle-right" aria-hidden="true"></i>
+  </span>
+  <a class="pointer" (click)="navigateTo(item.url, i, item.linkType)">{{item.title}}</a>
+</ng-container>
+<ng-container *ngIf="breadcrumbs.title"></ng-container>
+  <span class="delimiter">
+    <i class="fa fa-angle-right" aria-hidden="true"></i>
+  </span>
+  <span class="cur-default breadcrumbs-text">{{breadcrumbs.title}}</span>
+</ng-container>
+</nav> -->
+
+<ul nz-menu nzMode="horizontal">
+  <li nz-menu-item nzMatchRouter [nzMatchRouterExact]="true">
+    <a [routerLink]="['/']">Главная</a>
+  </li>
+  <li nz-menu-item nzMatchRouter>
+    <a [routerLink]="['/', 'product']">Товар</a>
+  </li>
+</ul>

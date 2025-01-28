@@ -1,0 +1,157 @@
+<!-- <div class="container w-full mx-auto">
+  <router-outlet />
+</div> -->
+<nz-layout>
+  <nz-sider *ngIf="hasSidebar" nzCollapsible nzWidth="200px" [nzCollapsedWidth]="0">
+    <div class="logo"></div>
+    <ul nz-menu nzMode="inline">
+      <li nz-menu-item>
+        <nz-icon nzType="pie-chart" />
+        <span>Option 1</span>
+      </li>
+      <li nz-menu-item>
+        <nz-icon nzType="desktop" />
+        <span>Option 2</span>
+      </li>
+      <li nz-submenu nzTitle="User" nzIcon="user">
+        <ul>
+          <li nz-menu-item>Tom</li>
+          <li nz-menu-item>Bill</li>
+          <li nz-menu-item>Alex</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Team" nzIcon="team">
+        <ul>
+          <li nz-menu-item>Team 1</li>
+          <li nz-menu-item>Team 2</li>
+        </ul>
+      </li>
+      <li nz-menu-item>
+        <nz-icon nzType="file" />
+        <span>File</span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <app-header (openSidebar)="isCollapsed = !isCollapsed" [header]="menues.header" [countMainCategory]="countMainCategory"></app-header>
+    </nz-header>
+    <nz-content>
+      <!-- <nz-breadcrumb> -->
+        <!-- <nz-breadcrumb-item>User</nz-breadcrumb-item> -->
+        <!-- <nz-breadcrumb-item>Bill</nz-breadcrumb-item> -->
+      <!-- </nz-breadcrumb> -->
+      <div class="container flex-1">
+        <router-outlet/>
+      </div>
+    </nz-content>
+    <nz-footer>
+      <app-footer></app-footer>
+    </nz-footer>
+  </nz-layout>
+</nz-layout>
+
+
+<!-- <nz-layout>
+  <nz-header>
+    <app-header (openSidebar)="isCollapsed = !isCollapsed" [header]="menues.header" [countMainCategory]="countMainCategory"></app-header>
+  </nz-header>
+  <nz-layout>
+    <nz-sider [nzBreakpoint]="'lg'" [nzCollapsed]="isCollapsed" [(nzCollapsed)]="isCollapsed" [nzWidth]="'256px'" [nzCollapsedWidth]="0">
+    </nz-sider>
+    <nz-content>
+      <app-breadcrumbs></app-breadcrumbs>
+    <div class="container flex-1">
+      <router-outlet/>
+    </div>
+    <nz-footer>
+      <app-footer></app-footer>
+    </nz-footer>
+      </nz-content>
+    </nz-layout>
+</nz-layout> -->
+
+
+<!-- <nz-layout  class="flex flex-col min-h-[100vh]">
+      <nz-sider [draggable]="false" [nzBreakpoint]="'lg'" [nzCollapsed]="isCollapsed" [(nzCollapsed)]="isCollapsed" [nzWidth]="'256px'" [nzCollapsedWidth]="0">
+        sider
+      </nz-sider>
+        <nz-content>
+          <app-header (openSidebar)="isCollapsed = !isCollapsed" [header]="menues.header" [countMainCategory]="countMainCategory"></app-header>
+          <div class="">
+              <div class="z-top container flex flex-col">
+                <button type="button" mat-button (click)="isCollapsed = !isCollapsed">
+                  Toggle sidenav
+                </button>
+                <app-breadcrumbs></app-breadcrumbs>
+              </div>
+            <div class="container flex-1">
+              <router-outlet/>
+            </div>
+          </div>
+        </nz-content>
+        <nz-footer>
+          <app-footer></app-footer>
+        </nz-footer>
+    </nz-layout> -->
+
+
+
+
+<!-- Кнопка для открытия основного меню -->
+<!-- <button mat-button [matMenuTriggerFor]="mainMenu">Главное меню</button> -->
+<!-- <mat-drawer-container>
+  <mat-drawer #drawer class="sidenav" mode="push">
+    <p>Auto-resizing sidenav</p>
+  </mat-drawer>
+
+    <div class="flex flex-col min-h-[100vh]">
+            <div > -->
+              <!-- <app-top-bar [headerTop]="menues.headerTop"></app-top-bar> -->
+              <!-- <app-header (openSidebar)="drawer.toggle()" [header]="menues.header" [countMainCategory]="countMainCategory"></app-header> -->
+              <!-- <app-header [header]="menues.header" [headerFixed]="headerFixed" [countMainCategory]="countMainCategory"></app-header> -->
+              <!-- <div class="z-top container">
+                <button type="button" mat-button (click)="drawer.toggle()">
+                  Toggle sidenav
+                </button>
+                <app-breadcrumbs></app-breadcrumbs>
+              </div>
+            </div> -->
+            <!-- <div class="container flex-1 z-[999999999999999]">
+              <router-outlet/>
+            </div> -->
+
+            <!-- <app-footer></app-footer> -->
+
+          <!-- </div> -->
+  <!-- <div class="example-sidenav-content">
+    <button type="button" mat-button (click)="drawer.toggle()">
+      Toggle sidenav
+    </button>
+  </div> -->
+
+<!-- </mat-drawer-container> -->
+
+
+
+<!-- <mat-drawer-container class="" [hasBackdrop]="true">
+  <mat-drawer #drawer [mode]="'over'">
+  </mat-drawer>
+  <mat-drawer-content>
+    <div id="page" class="hfeed site p-relative flex flex-col min-h-[100vh]" *ngIf="isReady">
+      <div class="z-top">
+        <app-header [header]="menues.header" [headerFixed]="headerFixed" [countMainCategory]="countMainCategory"></app-header>
+        <div class="z-top container">
+          <app-breadcrumbs></app-breadcrumbs>
+        </div>
+      </div>
+      <div class="container flex-1">
+        <router-outlet></router-outlet>
+      </div>
+
+      <app-footer></app-footer>
+
+    </div>
+
+  </mat-drawer-content>
+</mat-drawer-container> -->
