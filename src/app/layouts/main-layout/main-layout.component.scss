@@ -2,3 +2,52 @@
   width: 100%;
   height: 100%;
 }
+
+.layout {
+  min-height: 100vh;
+}
+
+.logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px 24px 16px 0;
+  float: left;
+}
+
+nz-header {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
+
+[nz-menu] {
+  line-height: 64px;
+}
+
+nz-content {
+  // padding: 0 80px;
+  margin-top: 150px;
+}
+
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
+.inner-content {
+  background: #fff;
+  padding: 24px;
+  min-height: 380px;
+}
+
+nz-footer {
+  text-align: center;
+}
+
+// nz-sider {
+//   overflow: auto;
+//   height: 100%;
+//   width: 100%;
+//   position: fixed;
+//   left: 0;
+// }

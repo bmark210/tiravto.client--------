@@ -40,16 +40,47 @@ import { WishListService } from '../../services/wishlist.service';
 import { CategoriesMenuService } from '../../core/services/api/categories-menu.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { MaterialModule } from '../../shared/modules/material';
-import { MAT_MENU_DEFAULT_OPTIONS, MatMenu, MatMenuTrigger } from '@angular/material/menu';
+import {
+  MAT_MENU_DEFAULT_OPTIONS,
+  MatMenu,
+  MatMenuTrigger,
+} from '@angular/material/menu';
 import { CustomMatMenuComponent } from './components/custom-mat-menu/custom-mat-menu.component';
 import { MenuModule } from '../../shared/modules/menu-module';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 // import { MatMenuHoverDirective } from 'ngx-mat-menu-hover';
 
 @UntilDestroy()
 @Component({
   selector: 'app-home',
-  imports: [HomeModule, MenuModule, CarouselModule, CommonModule, SafeHtmlPipe, HomeRelatedComponent, ProductItemComponent, NgSwitch, MaterialModule, RouterModule, CustomMatMenuComponent],
-  providers: [MenuService, BaseHttpService, NotificationService, AuthService, SeoService, ArrayService, ArticleService, BreadcrumbsService, WishListService, CategoriesMenuService],
+  imports: [
+    HomeModule,
+    MenuModule,
+    CarouselModule,
+    NzTabsModule,
+    CommonModule,
+    SafeHtmlPipe,
+    HomeRelatedComponent,
+    ProductItemComponent,
+    NgSwitch,
+    MaterialModule,
+    RouterModule,
+    NzIconModule,
+    CustomMatMenuComponent,
+  ],
+  providers: [
+    MenuService,
+    BaseHttpService,
+    NotificationService,
+    AuthService,
+    SeoService,
+    ArrayService,
+    ArticleService,
+    BreadcrumbsService,
+    WishListService,
+    CategoriesMenuService,
+  ],
   standalone: true,
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -158,11 +189,10 @@ export class HomeComponent {
     private authService: AuthService,
     private router: Router,
     private categoryMenu: CategoriesMenuService,
-    private cdr: ChangeDetectorRef,
-    // private iconRegistry: MatIconRegistry,
-    // private sanitizer: DomSanitizer,
-    // private iconService: IconService
-  ) {
+    private cdr: ChangeDetectorRef // private iconRegistry: MatIconRegistry,
+  ) // private sanitizer: DomSanitizer,
+  // private iconService: IconService
+  {
     this.seoService.defaultSeo();
   }
 
@@ -181,17 +211,17 @@ export class HomeComponent {
 
     //  this.iconRegistry.addSvgIcon('heart', this.sanitizer.bypassSecurityTrustResourceUrl('../../../assets/icons/heart.svg') // path to the SVG
     // );
-
   }
 
   getCategories() {
-    this.categoryMenu.getAllCategories().pipe(untilDestroyed(this)).subscribe((x) => {
-      this.categories = x;
-      console.log(x);
-
-    })
+    this.categoryMenu
+      .getAllCategories()
+      .pipe(untilDestroyed(this))
+      .subscribe((x) => {
+        this.categories = x;
+        console.log(x);
+      });
   }
-
 
   getParams(stringKey: string) {
     return {
@@ -204,20 +234,20 @@ export class HomeComponent {
     };
   }
 
-   saveMenu(menu: MatMenu, id: string): void {
-      this.menus[id] = menu;
-    }
+  saveMenu(menu: MatMenu, id: string): void {
+    this.menus[id] = menu;
+  }
 
-    openMenu(menuTrigger: MatMenuTrigger): void {
-      setTimeout(() => {
-        menuTrigger.openMenu();
-      }, 100)
-    }
-    closeMenu(menuTrigger: MatMenuTrigger): void {
-      setTimeout(() => {
-        menuTrigger.closeMenu();
-      }, 100)
-    }
+  openMenu(menuTrigger: MatMenuTrigger): void {
+    setTimeout(() => {
+      menuTrigger.openMenu();
+    }, 100);
+  }
+  closeMenu(menuTrigger: MatMenuTrigger): void {
+    setTimeout(() => {
+      menuTrigger.closeMenu();
+    }, 100);
+  }
 
   settingsListener(): void {
     if (this.menuService.siteSettings) {
@@ -265,7 +295,9 @@ export class HomeComponent {
   }
 
   getIconByStringKey(stringKey: string): string {
-    const index = this.iconSLider?.findIndex((x: any) => x?.stringKey === stringKey);
+    const index = this.iconSLider?.findIndex(
+      (x: any) => x?.stringKey === stringKey
+    );
     return index > -1 ? this.iconSLider?.[index].content : '';
   }
 
@@ -350,7 +382,7 @@ export class HomeComponent {
       .subscribe(
         (data) => {
           this.homeArticles = data as ArticleResponse[];
-          this.cdr.markForCheck()
+          this.cdr.markForCheck();
         },
         (error) => {
           console.error(error);
@@ -377,11 +409,11 @@ export class HomeComponent {
         // console.log(this.products, 'products');
 
         // this.products$.forEach((x) => {
-          // x.products.forEach((y: any) => {
-          //   y.images = y.images.map((z: any) => {
-          //     return { ...z, originalUrl: z.originalUrl };
-          //   });
-          // });
+        // x.products.forEach((y: any) => {
+        //   y.images = y.images.map((z: any) => {
+        //     return { ...z, originalUrl: z.originalUrl };
+        //   });
+        // });
         // });
 
         this.sectionDesktopSale = this.arrayService.chunck(
