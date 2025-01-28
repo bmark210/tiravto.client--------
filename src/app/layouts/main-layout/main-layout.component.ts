@@ -7,18 +7,30 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { CommonModule } from '@angular/common';
+
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 
 @UntilDestroy()
 @Component({
   selector: 'app-main-layout',
-  imports: [MainLayoutModule, RouterModule, NzIconModule, NzMenuModule, NzLayoutModule],
+  imports: [
+    MainLayoutModule,
+    RouterModule,
+    NzIconModule,
+    NzMenuModule,
+    NzLayoutModule,
+    CommonModule,
+    NzButtonModule,
+    NzDrawerModule,
+  ],
   providers: [],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainLayoutComponent {
-
   hasSidebar = false;
   private resizeObserver!: ResizeObserver;
 
@@ -43,7 +55,7 @@ export class MainLayoutComponent {
     this.resizeObserver.observe(document.body);
   }
 
-  isCollapsed = false;
+  isCollapsed = true;
 
   menues: MenuSectionResponse = {};
   countMainCategory = 0;
@@ -53,24 +65,31 @@ export class MainLayoutComponent {
 
   constructor(
     private mainLayoutApi: MainLayoutService,
-    private activatedRoute: ActivatedRoute,
-  ) // private seoService: SeoService,
-  // private menuService: MenuService,
-  // public notificationService: NotificationService,
+    private activatedRoute: ActivatedRoute // private seoService: SeoService, // private menuService: MenuService,
+  ) // public notificationService: NotificationService,
   // private client: Client,
   // private spinner: NgxSpinnerService,
   //   private route: ActivatedRoute
   {
     this.activatedRoute.queryParams.subscribe((x) => {
       console.log(x, 'here is route param');
-
-    })
+    });
     // this.seoService.defaultSeo();
     // this.eventSubscription = fromEvent(window, 'scroll')
     //   .pipe(takeUntil(this.ngUnsubscribe))
     //   .subscribe(e => {
     //     this.headerFixed = window.scrollY >= this.offSetHeader;
     // });
+  }
+
+  visible = false;
+
+  open(): void {
+    this.visible = true;
+  }
+
+  close(): void {
+    this.visible = false;
   }
 
   // spinnerShow(): void {
@@ -128,31 +147,31 @@ export class MainLayoutComponent {
   // }
 
   // ngOnInit(): void {
-    //   this.spinnerShow();
-    //   this.initSettings();
-    //   this.sideNav();
-    // if (this.authService.isLoggedIn()) {
-    //   this.authService.getProfileInfo();
-    // } else {
-    //   this.profile = null;
-    //   this.authService.profileStatusSource.next([null, 'Профиль']);
-    // }
-    // this.headerFixed = window.pageYOffset >= this.offSetHeader;
-    // this.initCategories();
+  //   this.spinnerShow();
+  //   this.initSettings();
+  //   this.sideNav();
+  // if (this.authService.isLoggedIn()) {
+  //   this.authService.getProfileInfo();
+  // } else {
+  //   this.profile = null;
+  //   this.authService.profileStatusSource.next([null, 'Профиль']);
+  // }
+  // this.headerFixed = window.pageYOffset >= this.offSetHeader;
+  // this.initCategories();
 
-    // this.initTimer();
+  // this.initTimer();
 
-    // this.authService.authNavStatus$
-    //   .pipe(takeUntil(this.ngUnsubscribe))
-    //   .subscribe((state: any) => {
-    //     if (state) {
-    //       this.authService.getProfileInfo();
-    //     } else {
-    //       this.profile = null;
-    //       this.authService.profileStatusSource.next([null, 'Профиль']);
-    //       this.menuService.balanceStatusSource.next(0);
-    //     }
-    //   });
+  // this.authService.authNavStatus$
+  //   .pipe(takeUntil(this.ngUnsubscribe))
+  //   .subscribe((state: any) => {
+  //     if (state) {
+  //       this.authService.getProfileInfo();
+  //     } else {
+  //       this.profile = null;
+  //       this.authService.profileStatusSource.next([null, 'Профиль']);
+  //       this.menuService.balanceStatusSource.next(0);
+  //     }
+  //   });
   // }
 
   // initSettings(): void {

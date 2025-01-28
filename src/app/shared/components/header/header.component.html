@@ -1,6 +1,5 @@
 <!-- <header> -->
 
-
 <!-- <p class="text-2xl">{{width}}</p> -->
 <!-- <div>
     <h1>User Information</h1>
@@ -13,45 +12,52 @@
     <button (click)="clearUser()">Clear User</button>
   </div> -->
 
-  <!-- <app-custom-mat-menu></app-custom-mat-menu> -->
+<!-- <app-custom-mat-menu></app-custom-mat-menu> -->
 
-<header
-  class="pt-5 xl:block hidden"
->
-  <!-- [ngClass]="{
-    'header-bottom-home': isHome === true,
-    'header-bottom': isHome === false
-  }" -->
-<ng-container *ngFor="let item of header; let i = index">
-  <!-- {{header?.[i]["name"] | json}} -->
-</ng-container>
+<header class="pt-5 xl:block container">
+  <ng-container *ngFor="let item of header; let i = index">
+    <!-- {{header?.[i]["name"] | json}} -->
+  </ng-container>
 
-<ul #menu nz-menu nzMode="horizontal" class="overflow-menu">
-  <li *ngFor="let item of visibleItems" nz-menu-item [nzSelected]="item.selected" [nzDisabled]="item.disabled">
-    <nz-icon *ngIf="item.icon" [nzType]="item.icon"></nz-icon>
-    {{ item.label }}
-  </li>
-  <li *ngIf="overflowItems.length > 0" nz-submenu nzTitle="..." class="more-menu">
-    <ul>
-      <li *ngFor="let item of overflowItems" nz-menu-item [nzSelected]="item.selected" [nzDisabled]="item.disabled">
-        <nz-icon *ngIf="item.icon" [nzType]="item.icon"></nz-icon>
-        {{ item.label }}
-      </li>
-    </ul>
-  </li>
-</ul>
+  <ul #menu nz-menu nzMode="horizontal" class="flex gap-2">
+    <li
+      *ngFor="let item of visibleItems"
+      nz-menu-item
+      [nzSelected]="item.selected"
+      [nzDisabled]="item.disabled"
+    >
+      <nz-icon *ngIf="item.icon" [nzType]="item.icon"></nz-icon>
+      {{ item.label }}
+    </li>
+    <li
+      *ngIf="overflowItems.length > 0"
+      nz-submenu
+      nzTitle="..."
+      class="more-menu"
+      nzPlacement="bottomCenter"
+    >
+      <ul>
+        <li
+          *ngFor="let item of overflowItems"
+          nz-menu-item
+          [nzSelected]="item.selected"
+          [nzDisabled]="item.disabled"
+        >
+          <nz-icon *ngIf="item.icon" [nzType]="item.icon"></nz-icon>
+          {{ item.label }}
+        </li>
+      </ul>
+    </li>
+  </ul>
 
-  <div
-    class="container flex items-center justify-between mb-1"
-    #maxWidthMenu
-  >
-   <!-- <a rel="home" [routerLink]="['/']">
+  <div class="container flex items-center justify-between mb-1" #maxWidthMenu>
+    <!-- <a rel="home" [routerLink]="['/']">
       <img src="https://tiravto.com/assets/logo-small.png" />
     </a>
     <div #headerMenu> -->
-      <!-- <app-category-button [categories]="categories"></app-category-button> -->
-      <!-- <app-category-button></app-category-button> -->
-        <!-- <ng-container *ngFor="let item of header; let i = index">
+    <!-- <app-category-button [categories]="categories"></app-category-button> -->
+    <!-- <app-category-button></app-category-button> -->
+    <!-- <ng-container *ngFor="let item of header; let i = index">
           <ng-container *ngIf="item.items.length === 0; else dropDown">
             <button
               class="menu-button"
@@ -158,9 +164,9 @@
     <div class="w-full flex justify-end items-center gap-3">
       <ng-container *ngIf="currentPath | async as route">
         <app-header-category-btn
-        *ngIf="route !== '/'"
-        [settingBool]="settingBool"
-      ></app-header-category-btn>
+          *ngIf="route !== '/'"
+          [settingBool]="settingBool"
+        ></app-header-category-btn>
       </ng-container>
 
       <app-search></app-search>
@@ -296,8 +302,8 @@
   </div>
 </header>
 
-<div class="xl:hidden h-[40px]"></div>
-<header class="xl:hidden fixed w-full top-0 bg-white min-h-max py-4 z-50 shadow-md">
+<!-- <div class="xl:hidden h-[40px]"></div> -->
+<!-- <header class="xl:hidden fixed w-full top-0 bg-white min-h-max py-4 z-50 shadow-md">
   <div class="container mx-auto flex items-center justify-between">
     <div class="">
       <button class="" type="button" (click)="openSidebar.emit()">
@@ -329,4 +335,4 @@
       </ul>
     </div>
   </div>
-</header>
+</header> -->

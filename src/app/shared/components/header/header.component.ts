@@ -11,7 +11,12 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterLink,
+} from '@angular/router';
 import {
   BasketCityResponse,
   BasketCountResponse,
@@ -43,6 +48,8 @@ import { CategoryButtonComponent } from '../category-button/category-button.comp
 import { HeaderCategoryBtnComponent } from '../header-category-btn/header-category-btn.component';
 import { CustomMatMenuComponent } from '../../../pages/home/components/custom-mat-menu/custom-mat-menu.component';
 import { MenuModule } from '../../modules/menu-module';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @UntilDestroy()
 @Component({
@@ -56,14 +63,15 @@ import { MenuModule } from '../../modules/menu-module';
     CategoryButtonComponent,
     HeaderCategoryBtnComponent,
     MenuModule,
-    CustomMatMenuComponent
+    NzIconModule,
+    CustomMatMenuComponent,
+    NzMenuModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
-
   @ViewChild('menu', { static: true }) menu!: ElementRef<HTMLUListElement>;
 
   menuItems = [
@@ -93,7 +101,9 @@ export class HeaderComponent implements OnInit {
 
   ngAfterViewInit() {
     this.updateMenuItems();
-    window.addEventListener('resize', ($event: any) => this.updateHeaderMenu($event));
+    window.addEventListener('resize', ($event: any) =>
+      this.updateHeaderMenu($event)
+    );
   }
 
   @HostListener('window:resize')
@@ -123,9 +133,7 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-
-
-  @Output() openSidebar: EventEmitter<void> = new EventEmitter(null)
+  @Output() openSidebar: EventEmitter<void> = new EventEmitter(null);
 
   user$: Observable<UserState> = new BehaviorSubject<UserState>(
     {} as UserState
@@ -156,15 +164,14 @@ export class HeaderComponent implements OnInit {
   @ViewChild('rightHeader') rightHeader: ElementRef;
 
   width: number;
-  updateHeaderMenu(e: any){
-    this.width = e.currentTarget.innerWidth
+  updateHeaderMenu(e: any) {
+    this.width = e.currentTarget.innerWidth;
 
     let width = e.currentTarget.innerWidth;
     if (width <= 1420) {
-
     }
     console.log(e);
-    this.headerMenu.nativeElement as HTMLElement
+    this.headerMenu.nativeElement as HTMLElement;
   }
 
   searchActual: string = '';
@@ -252,14 +259,13 @@ export class HeaderComponent implements OnInit {
       });
     }
 
-
     this.router.events.subscribe((event) => {
-          if (event instanceof NavigationEnd) {
-            // Get the current path from the URL
-            this.currentPath.next(window.location.pathname);
-            console.log('Current Path:', this.currentPath);
-          }
-        });
+      if (event instanceof NavigationEnd) {
+        // Get the current path from the URL
+        this.currentPath.next(window.location.pathname);
+        console.log('Current Path:', this.currentPath);
+      }
+    });
     this.checkWidthHeader();
     this.menusWidth.push(160);
     this.menusWidth.push(190);
@@ -359,8 +365,8 @@ export class HeaderComponent implements OnInit {
 
   // @HostListener('window:resize', ['$event'])
   // onResize(event): void {
-    // event.target.innerWidth
-    // this.checkWidthHeader();
+  // event.target.innerWidth
+  // this.checkWidthHeader();
   // }
 
   ngOnDestroy(): void {

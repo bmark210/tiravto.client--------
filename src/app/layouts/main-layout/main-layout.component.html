@@ -1,8 +1,34 @@
 <!-- <div class="container w-full mx-auto">
   <router-outlet />
 </div> -->
-<nz-layout>
-  <nz-sider *ngIf="hasSidebar" nzCollapsible nzWidth="200px" [nzCollapsedWidth]="0">
+    <nz-drawer
+      [nzClosable]="false"
+      [nzVisible]="visible"
+      nzPlacement="right"
+      nzTitle="Basic Drawer"
+      (nzOnClose)="close()"
+    >
+      <ng-container *nzDrawerContent>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </ng-container>
+    </nz-drawer>
+
+
+<nz-layout
+  [ngStyle]="{ width: !isCollapsed ? 'calc(100% + 270px)' : '100%' }"
+  class="layout"
+>
+<button nz-button nzType="primary" (click)="open()">Open</button>
+
+  <!-- <nz-sider
+    *ngIf="hasSidebar"
+    [(nzCollapsed)]="isCollapsed"
+    nzCollapsible
+    nzWidth="270px"
+    [nzCollapsedWidth]="0"
+  >
     <div class="logo"></div>
     <ul nz-menu nzMode="inline">
       <li nz-menu-item>
@@ -31,18 +57,22 @@
         <span>File</span>
       </li>
     </ul>
-  </nz-sider>
+  </nz-sider> -->
   <nz-layout>
     <nz-header>
-      <app-header (openSidebar)="isCollapsed = !isCollapsed" [header]="menues.header" [countMainCategory]="countMainCategory"></app-header>
+      <app-header
+        (openSidebar)="isCollapsed = !isCollapsed"
+        [header]="menues.header"
+        [countMainCategory]="countMainCategory"
+      ></app-header>
     </nz-header>
     <nz-content>
       <!-- <nz-breadcrumb> -->
-        <!-- <nz-breadcrumb-item>User</nz-breadcrumb-item> -->
-        <!-- <nz-breadcrumb-item>Bill</nz-breadcrumb-item> -->
+      <!-- <nz-breadcrumb-item>User</nz-breadcrumb-item> -->
+      <!-- <nz-breadcrumb-item>Bill</nz-breadcrumb-item> -->
       <!-- </nz-breadcrumb> -->
       <div class="container flex-1">
-        <router-outlet/>
+        <router-outlet />
       </div>
     </nz-content>
     <nz-footer>
@@ -50,7 +80,6 @@
     </nz-footer>
   </nz-layout>
 </nz-layout>
-
 
 <!-- <nz-layout>
   <nz-header>
@@ -70,7 +99,6 @@
       </nz-content>
     </nz-layout>
 </nz-layout> -->
-
 
 <!-- <nz-layout  class="flex flex-col min-h-[100vh]">
       <nz-sider [draggable]="false" [nzBreakpoint]="'lg'" [nzCollapsed]="isCollapsed" [(nzCollapsed)]="isCollapsed" [nzWidth]="'256px'" [nzCollapsedWidth]="0">
@@ -95,9 +123,6 @@
         </nz-footer>
     </nz-layout> -->
 
-
-
-
 <!-- Кнопка для открытия основного меню -->
 <!-- <button mat-button [matMenuTriggerFor]="mainMenu">Главное меню</button> -->
 <!-- <mat-drawer-container>
@@ -107,32 +132,30 @@
 
     <div class="flex flex-col min-h-[100vh]">
             <div > -->
-              <!-- <app-top-bar [headerTop]="menues.headerTop"></app-top-bar> -->
-              <!-- <app-header (openSidebar)="drawer.toggle()" [header]="menues.header" [countMainCategory]="countMainCategory"></app-header> -->
-              <!-- <app-header [header]="menues.header" [headerFixed]="headerFixed" [countMainCategory]="countMainCategory"></app-header> -->
-              <!-- <div class="z-top container">
+<!-- <app-top-bar [headerTop]="menues.headerTop"></app-top-bar> -->
+<!-- <app-header (openSidebar)="drawer.toggle()" [header]="menues.header" [countMainCategory]="countMainCategory"></app-header> -->
+<!-- <app-header [header]="menues.header" [headerFixed]="headerFixed" [countMainCategory]="countMainCategory"></app-header> -->
+<!-- <div class="z-top container">
                 <button type="button" mat-button (click)="drawer.toggle()">
                   Toggle sidenav
                 </button>
                 <app-breadcrumbs></app-breadcrumbs>
               </div>
             </div> -->
-            <!-- <div class="container flex-1 z-[999999999999999]">
+<!-- <div class="container flex-1 z-[999999999999999]">
               <router-outlet/>
             </div> -->
 
-            <!-- <app-footer></app-footer> -->
+<!-- <app-footer></app-footer> -->
 
-          <!-- </div> -->
-  <!-- <div class="example-sidenav-content">
+<!-- </div> -->
+<!-- <div class="example-sidenav-content">
     <button type="button" mat-button (click)="drawer.toggle()">
       Toggle sidenav
     </button>
   </div> -->
 
 <!-- </mat-drawer-container> -->
-
-
 
 <!-- <mat-drawer-container class="" [hasBackdrop]="true">
   <mat-drawer #drawer [mode]="'over'">
